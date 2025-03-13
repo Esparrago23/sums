@@ -1,15 +1,14 @@
+
 import express from 'express';
 import dotenv from 'dotenv';
-import MiembroFamiliaRouter from './src/MiembroFamilia/infraestructure/routes/miembroFamiliaRouter';
-import FamiliaRouter from './src/Familia/infraestructure/routes/familiaRouter';
-import ViviendaRouter from './src/Vivienda/infraestructure/routes/viviendaRouter';
+import Router from './src/User/infraestructure/routes/userRouter';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-app.use('/sums',MiembroFamiliaRouter, FamiliaRouter, ViviendaRouter);
+app.use('/sums', Router);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
