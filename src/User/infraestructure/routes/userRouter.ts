@@ -1,9 +1,9 @@
 import express from 'express';
-import { createUserController } from '../dependencies';
-import { readAllUserController } from '../dependencies';
-import { deleteUserController } from '../dependencies';
-import { readUserByIdController } from '../dependencies';
-import { updateUserController } from '../dependencies';
+import { createUserController } from '../user_dependencies';
+import { readAllUserController } from '../user_dependencies';
+import { deleteUserController } from '../user_dependencies';
+import { readUserByIdController } from '../user_dependencies';
+import { updateUserController } from '../user_dependencies';
 
 export const router = express.Router();
 router.post('/register', createUserController.run.bind(createUserController));

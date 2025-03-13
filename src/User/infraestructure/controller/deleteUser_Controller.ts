@@ -8,7 +8,7 @@ export class DeleteUser_Controller {
         try {
             const { id } = req.params;
             await this.deleteUser.execute(id);
-            res.status(204).end();
+            res.status(200).json({ message: "User deleted successfully" });
         } catch (error:any) {
             res.status(400).json({ error: error.message }); 
         }
