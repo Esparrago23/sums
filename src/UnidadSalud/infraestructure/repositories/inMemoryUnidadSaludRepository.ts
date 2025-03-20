@@ -1,39 +1,62 @@
 import { UnidadSalud } from "../../domain/entities/UnidadSalud";
 import { IUnidadSaludRepository } from "../../domain/repositories/IUnidadSaludRepository";
+import { db } from "../../../core/db_postgresql";
 
 export class InMemoryUnidadSaludRepository implements IUnidadSaludRepository {
-  private unidadesSalud: UnidadSalud[] = [];
-
-  create(unidadSalud: UnidadSalud): Promise<UnidadSalud> {
-    this.unidadesSalud.push(unidadSalud);
-    return Promise.resolve(unidadSalud);
+  async create(unidadSalud: UnidadSalud): Promise<UnidadSalud> {
+    const query = `
+      INSERT INTO unidad_salud (clues, nombre, distrito, municipio, especialidad)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *;
+    `;
+    const values = [unidadSalud.clues, unidadSalud.nombre, unidadSalud.distrito, unidadSalud.municipio, unidadSalud.especialidad];
+    const result = await db.executePreparedQuery(query, values);
+    return result.rows[0];
   }
 
-  update(unidadSalud: UnidadSalud): Promise<UnidadSalud> {
-    const index = this.unidadesSalud.findIndex(u => u.id === unidadSalud.id);
-    if (index !== -1) {
-      this.unidadesSalud[index] = unidadSalud;
-      return Promise.resolve(unidadSalud);
-    } else {
-      return Promise.reject(new Error('UnidadSalud not found'));
+  async update(unidadSalud: UnidadSalud): Promise<UnidadSalud> {
+    const query = `
+      UPDATE unidad_salud
+      SET clues = $1, nombre = $2, distrito = $3, municipio = $4, especialidad = $5
+      WHERE id = $6
+      RETURNING *;
+    `;
+    const values = [unidadSalud.clues, unidadSalud.nombre, unidadSalud.distrito, unidadSalud.municipio, unidadSalud.especialidad, unidadSalud.id];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error('UnidadSalud not found');
     }
+    return result.rows[0];
   }
 
-  readById(id: number): Promise<UnidadSalud> {
-    const unidadSalud = this.unidadesSalud.find(u => u.id === id);
-    if (unidadSalud) {
-      return Promise.resolve(unidadSalud);
-    } else {
-      return Promise.reject(new Error('UnidadSalud not found'));
+  async readById(id: number): Promise<UnidadSalud> {
+    const query = `
+      SELECT * FROM unidad_salud
+      WHERE id = $1;
+    `;
+    const values = [id];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error('UnidadSalud not found');
     }
+    return result.rows[0];
   }
 
-  delete(id: number): Promise<void> {
-    this.unidadesSalud = this.unidadesSalud.filter(u => u.id !== id);
-    return Promise.resolve();
+  async delete(id: number): Promise<void> {
+    const query = `
+      DELETE FROM unidad_salud
+      WHERE id = $1;
+    `;
+    const values = [id];
+    await db.executePreparedQuery(query, values);
   }
 
-  readAll(): Promise<UnidadSalud[]> {
-    return Promise.resolve(this.unidadesSalud);
+  async readAll(): Promise<UnidadSalud[]> {
+    const query = `
+      SELECT * FROM unidad_salud;
+    `;
+    const result = await db.executePreparedQuery(query, []);
+    console.log(result.rows);
+    return result.rows;
   }
 }

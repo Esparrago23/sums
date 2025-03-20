@@ -4,7 +4,16 @@ import { IUnidadSaludRepository } from "../domain/repositories/IUnidadSaludRepos
 export class ReadAllUnidadSaludUseCase {
   constructor(private unidadSaludRepository: IUnidadSaludRepository) {}
 
-  async execute(): Promise<UnidadSalud[]> {
-    return this.unidadSaludRepository.readAll();
+  
+  async execute() {
+    try {
+      console.log("Ejecutando findAll()...");
+      const data = await this.unidadSaludRepository.readAll();
+      console.log("Datos obtenidos en execute():", data);
+      return data;
+    } catch (error) {
+      console.error("Error en execute():", error);
+      throw new Error("Fallo en la consulta de unidades de salud");
+    }
   }
 }
