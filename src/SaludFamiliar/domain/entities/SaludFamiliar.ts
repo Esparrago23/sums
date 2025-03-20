@@ -6,7 +6,7 @@ export class SaludFamiliar {
         public enfermedades: boolean,
         public embarazo_atencion: boolean,
         public alimentacion: string,
-        public higiene: boolean,
+        public higiene_familiar: boolean,
         public alcoholismo: boolean,
         public tabaquismo: boolean,
         public tamizaje_cervico_uterino: boolean,
