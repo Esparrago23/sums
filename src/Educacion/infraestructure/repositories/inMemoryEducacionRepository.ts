@@ -1,39 +1,70 @@
 import { Educacion } from "../../domain/entities/Educacion";
 import { IEducacionRepo } from "../../domain/repositories/IEducacion_repo";
+import { db } from '../../../core/db_postgresql';
 
 export class InMemoryEducacionRepository implements IEducacionRepo {
-  private educaciones: Educacion[] = [];
-
-  create(educacion: Educacion): Promise<Educacion> {
-    this.educaciones.push(educacion);
-    return Promise.resolve(educacion);
+  async create(educacion: Educacion): Promise<Educacion> {
+    const query = `
+      INSERT INTO educacion (persona_id, escolaridad, ocupacion)
+      VALUES ($1, $2, $3)
+      RETURNING *;
+    `;
+    const values = [
+      educacion.persona_id,
+      educacion.escolaridad,
+      educacion.ocupacion
+    ];
+    const result = await db.executePreparedQuery(query, values);
+    return result.rows[0];
   }
 
-  update(educacion: Educacion): Promise<Educacion> {
-    const index = this.educaciones.findIndex((e) => e.id === educacion.id);
-    if (index !== -1) {
-      this.educaciones[index] = educacion;
-      return Promise.resolve(educacion);
-    } else {
-      return Promise.reject(new Error("Educacion not found"));
+  async update(educacion: Educacion): Promise<Educacion> {
+    const query = `
+      UPDATE educacion
+      SET persona_id = $1, escolaridad = $2, ocupacion = $3
+      WHERE id = $4
+      RETURNING *;
+    `;
+    const values = [
+      educacion.persona_id,
+      educacion.escolaridad,
+      educacion.ocupacion,
+      educacion.id
+    ];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error("Educacion not found");
     }
+    return result.rows[0];
   }
 
-  readById(id: number): Promise<Educacion> {
-    const educacion = this.educaciones.find((e) => e.id === id);
-    if (educacion) {
-      return Promise.resolve(educacion);
-    } else {
-      return Promise.reject(new Error("Educacion not found"));
+  async readById(id: number): Promise<Educacion> {
+    const query = `
+      SELECT * FROM educacion
+      WHERE id = $1;
+    `;
+    const values = [id];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error("Educacion not found");
     }
+    return result.rows[0];
   }
 
-  delete(id: number): Promise<void> {
-    this.educaciones = this.educaciones.filter((e) => e.id !== id);
-    return Promise.resolve();
+  async delete(id: number): Promise<void> {
+    const query = `
+      DELETE FROM educacion
+      WHERE id = $1;
+    `;
+    const values = [id];
+    await db.executePreparedQuery(query, values);
   }
 
-  readAll(): Promise<Educacion[]> {
-    return Promise.resolve(this.educaciones);
+  async readAll(): Promise<Educacion[]> {
+    const query = `
+      SELECT * FROM educacion;
+    `;
+    const result = await db.executePreparedQuery(query, []);
+    return result.rows;
   }
 }
