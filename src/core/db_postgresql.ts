@@ -12,7 +12,7 @@ class Conn_PostgreSQL {
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_SCHEMA,
-      port: parseInt(process.env.DB_PORT || '5432', 10),
+      port: parseInt(process.env.DB_PORT || '5433', 10),
       max: 10, // Número máximo de conexiones en el pool
     });
 
