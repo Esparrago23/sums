@@ -41,7 +41,7 @@ app.use('/sums',
         FamiliaRouter,
         ViviendaRouter,
         UnidadSaludRouter,
-        ConvivenciaAnimalesRouter,+
+        ConvivenciaAnimalesRouter,
         EducacionRouter,
         SaludFamiliarRouter);
 
