@@ -19,7 +19,7 @@ import UnidadSaludRouter from './src/UnidadSalud/infraestructure/routes/unidadSa
 import ConvivenciaAnimalesRouter from './src/ConvivenciaAnimales/infraestructure/routes/convivenciaAnimalesRouter';
 import EducacionRouter from './src/Educacion/infraestructure/routes/educacionRouter';
 import SaludFamiliarRouter from './src/SaludFamiliar/infraestructure/routes/saludFamiliarRouter';
-
+import serviciosBasicosRouter from './src/ServiciosBasicos/infraestructure/serviciosBasicos_routes';
 dotenv.config();
 
 const app = express();
@@ -43,7 +43,9 @@ app.use('/sums',
         UnidadSaludRouter,
         ConvivenciaAnimalesRouter,
         EducacionRouter,
-        SaludFamiliarRouter);
+        SaludFamiliarRouter,
+        serviciosBasicosRouter
+    );
 
 
 const PORT = process.env.PORT || 3000;

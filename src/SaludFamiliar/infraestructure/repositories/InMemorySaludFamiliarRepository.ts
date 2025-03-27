@@ -1,47 +1,99 @@
 import { ISaludFamiliarRepository } from "../../domain/repositories/ISaludFamiliarRepository";
 import { SaludFamiliar } from "../../domain/entities/SaludFamiliar";
+import { db } from '../../../core/db_postgresql';
 
-export class InMemorySaludFamiliarRepository
-  implements ISaludFamiliarRepository
-{
-  private saludFamiliares: SaludFamiliar[] = [];
-
-  create(saludFamiliar: SaludFamiliar): Promise<SaludFamiliar> {
-    this.saludFamiliares.push(saludFamiliar);
-    return Promise.resolve(saludFamiliar);
+export class InMemorySaludFamiliarRepository implements ISaludFamiliarRepository {
+  async create(saludFamiliar: SaludFamiliar): Promise<SaludFamiliar> {
+    const query = `
+      INSERT INTO salud_familiar (
+        persona_id, seguridad_social, enfermedades, embarazo_atencion, 
+        alimentacion, higiene_familiar, alcoholismo, tabaquismo, 
+        tamizaje_cervico_uterino, tamizaje_cancer_mama, discapacidad, 
+        servicio_salud_frecuencia, motivo_uso_servicio_salud
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      RETURNING *;
+    `;
+    const values = [
+      saludFamiliar.persona_id,
+      saludFamiliar.seguridad_social,
+      saludFamiliar.enfermedades,
+      saludFamiliar.embarazo_atencion,
+      saludFamiliar.alimentacion,
+      saludFamiliar.higiene_familiar,
+      saludFamiliar.alcoholismo,
+      saludFamiliar.tabaquismo,
+      saludFamiliar.tamizaje_cervico_uterino,
+      saludFamiliar.tamizaje_cancer_mama,
+      saludFamiliar.discapacidad,
+      saludFamiliar.servicio_salud_frecuencia,
+      saludFamiliar.motivo_uso_servicio_salud
+    ];
+    const result = await db.executePreparedQuery(query, values);
+    return result.rows[0];
   }
 
-  readAll(): Promise<SaludFamiliar[]> {
-    return Promise.resolve(this.saludFamiliares);
-  }
-
-  readById(id: number): Promise<SaludFamiliar> {
-    const saludFamiliar = this.saludFamiliares.find((sf) => sf.id === id);
-    if (!saludFamiliar) {
-      return Promise.reject(new Error(`SaludFamiliar with id ${id} not found`));
+  async update(saludFamiliar: SaludFamiliar): Promise<SaludFamiliar> {
+    const query = `
+      UPDATE salud_familiar
+      SET persona_id = $1, seguridad_social = $2, enfermedades = $3, 
+          embarazo_atencion = $4, alimentacion = $5, higiene_familiar = $6,
+          alcoholismo = $7, tabaquismo = $8, tamizaje_cervico_uterino = $9,
+          tamizaje_cancer_mama = $10, discapacidad = $11,
+          servicio_salud_frecuencia = $12, motivo_uso_servicio_salud = $13
+      WHERE id = $14
+      RETURNING *;
+    `;
+    const values = [
+      saludFamiliar.persona_id,
+      saludFamiliar.seguridad_social,
+      saludFamiliar.enfermedades,
+      saludFamiliar.embarazo_atencion,
+      saludFamiliar.alimentacion,
+      saludFamiliar.higiene_familiar,
+      saludFamiliar.alcoholismo,
+      saludFamiliar.tabaquismo,
+      saludFamiliar.tamizaje_cervico_uterino,
+      saludFamiliar.tamizaje_cancer_mama,
+      saludFamiliar.discapacidad,
+      saludFamiliar.servicio_salud_frecuencia,
+      saludFamiliar.motivo_uso_servicio_salud,
+      saludFamiliar.id
+    ];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error('Salud Familiar not found');
     }
-    return Promise.resolve(saludFamiliar);
+    return result.rows[0];
   }
 
-  update(saludFamiliar: SaludFamiliar): Promise<SaludFamiliar> {
-    const index = this.saludFamiliares.findIndex(
-      (sf) => sf.id === saludFamiliar.id
-    );
-    if (index === -1) {
-      return Promise.reject(
-        new Error(`SaludFamiliar with id ${saludFamiliar.id} not found`)
-      );
+  async readById(id: number): Promise<SaludFamiliar> {
+    const query = `
+      SELECT * FROM salud_familiar
+      WHERE id = $1;
+    `;
+    const values = [id];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error('Salud Familiar not found');
     }
-    this.saludFamiliares[index] = saludFamiliar;
-    return Promise.resolve(saludFamiliar);
+    return result.rows[0];
   }
 
-  delete(id: number): Promise<void> {
-    const index = this.saludFamiliares.findIndex((sf) => sf.id === id);
-    if (index === -1) {
-      return Promise.reject(new Error(`SaludFamiliar with id ${id} not found`));
-    }
-    this.saludFamiliares.splice(index, 1);
-    return Promise.resolve();
+  async delete(id: number): Promise<void> {
+    const query = `
+      DELETE FROM salud_familiar
+      WHERE id = $1;
+    `;
+    const values = [id];
+    await db.executePreparedQuery(query, values);
+  }
+
+  async readAll(): Promise<SaludFamiliar[]> {
+    const query = `
+      SELECT * FROM salud_familiar;
+    `;
+    const result = await db.executePreparedQuery(query, []);
+    return result.rows;
   }
 }

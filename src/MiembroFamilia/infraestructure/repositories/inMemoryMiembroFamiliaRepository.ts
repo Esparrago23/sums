@@ -1,39 +1,70 @@
 import { MiembroFamilia } from '../../domain/entities/miembroFamilia';
 import { IMiembroFamiliaRepository } from '../../domain/repositories/IMiembroFamiliaRepository';
+import { db } from '../../../core/db_postgresql';
 
 export class InMemoryMiembroFamiliaRepository implements IMiembroFamiliaRepository {
-    private miembrosFamilia: MiembroFamilia[] = [];
+  async create(miembroFamilia: MiembroFamilia): Promise<MiembroFamilia> {
+    const query = `
+      INSERT INTO miembro_familia (datos_personales_id, salud_id, educacion_id)
+      VALUES ($1, $2, $3)
+      RETURNING *;
+    `;
+    const values = [
+      miembroFamilia.datos_personales_id,
+      miembroFamilia.salud_id,
+      miembroFamilia.educacion_id
+    ];
+    const result = await db.executePreparedQuery(query, values);
+    return result.rows[0];
+  }
 
-    create(miembroFamilia: MiembroFamilia): Promise<MiembroFamilia> {
-        this.miembrosFamilia.push(miembroFamilia);
-        return Promise.resolve(miembroFamilia);
+  async update(miembroFamilia: MiembroFamilia): Promise<MiembroFamilia> {
+    const query = `
+      UPDATE miembro_familia
+      SET datos_personales_id = $1, salud_id = $2, educacion_id = $3
+      WHERE id = $4
+      RETURNING *;
+    `;
+    const values = [
+      miembroFamilia.datos_personales_id,
+      miembroFamilia.salud_id,
+      miembroFamilia.educacion_id,
+      miembroFamilia.id
+    ];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error('Miembro de familia not found');
     }
+    return result.rows[0];
+  }
 
-    update(miembroFamilia: MiembroFamilia): Promise<MiembroFamilia> {
-        const index = this.miembrosFamilia.findIndex(mf => mf.id === miembroFamilia.id);
-        if (index !== -1) {
-            this.miembrosFamilia[index] = miembroFamilia;
-            return Promise.resolve(miembroFamilia);
-        } else {
-            return Promise.reject(new Error('Miembro de familia not found'));
-        }
+  async readById(id: number): Promise<MiembroFamilia> {
+    const query = `
+      SELECT * FROM miembro_familia
+      WHERE id = $1;
+    `;
+    const values = [id];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error('Miembro de familia not found');
     }
+    return result.rows[0];
+  }
 
-    readById(id: number): Promise<MiembroFamilia> {
-        const miembroFamilia = this.miembrosFamilia.find(mf => mf.id === id);
-        if (miembroFamilia) {
-            return Promise.resolve(miembroFamilia);
-        } else {
-            return Promise.reject(new Error('Miembro de familia not found'));
-        }
-    }
+  async delete(id: number): Promise<void> {
+    const query = `
+      DELETE FROM miembro_familia
+      WHERE id = $1;
+    `;
+    const values = [id];
+    await db.executePreparedQuery(query, values);
+  }
 
-    delete(id: number): Promise<void> {
-        this.miembrosFamilia = this.miembrosFamilia.filter(mf => mf.id !== id);
-        return Promise.resolve();
-    }
-
-    readAll(): Promise<MiembroFamilia[]> {
-        return Promise.resolve(this.miembrosFamilia);
-    }
+  async readAll(): Promise<MiembroFamilia[]> {
+    const query = `
+      SELECT * FROM miembro_familia;
+    `;
+    const result = await db.executePreparedQuery(query, []);
+    return result.rows;
+  }
 }
