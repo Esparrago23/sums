@@ -7,7 +7,7 @@ export class Vacunacion {
     public id: number,
     public persona_id: number,
     public vacunas: Vacunas,
-    public dosis: number,
+    public dosis_id: number,
     public fecha_aplicacion: Date
   ) {}
 }
