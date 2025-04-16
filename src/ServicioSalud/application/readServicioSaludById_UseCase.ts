@@ -1,4 +1,4 @@
-import { ServicioSalud } from "../domain/entities/ServicioSalud";
+import { ServicioSalud } from "../domain/entities/servicioSalud";
 import { IServicioSaludRepository } from "../domain/repositories/IServicioSaludRepository";
 
 export class ReadServicioSaludByIdUseCase {

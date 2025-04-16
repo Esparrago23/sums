@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85380867-c97a-4ac4-886c-142e99647d18" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sums.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ServicioSalud/domain/entities/servicioSalud.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/application/createServicioSalud_UseCase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/application/createServicioSalud_UseCase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/application/deleteServicioSalud_UseCase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/application/deleteServicioSalud_UseCase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/application/readAllServicioSalud_UseCase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/application/readAllServicioSalud_UseCase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/application/readServicioSaludById_UseCase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/application/readServicioSaludById_UseCase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/application/updateServicioSalud_UseCase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/application/updateServicioSalud_UseCase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/domain/entities/ServicioSalud.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/domain/repositories/IServicioSaludRepository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/domain/repositories/IServicioSaludRepository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/createServicioSalud_Controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/createServicioSalud_Controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/deleteServicioSalud_Controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/deleteServicioSalud_Controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/readAllServicioSalud_Controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/readAllServicioSalud_Controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/readServicioSaludById_Controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/readServicioSaludById_Controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/updateServicioSalud_Controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/controllers/updateServicioSalud_Controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/repositories/inMemoryServicioSaludRepository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/repositories/inMemoryServicioSaludRepository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/routes/servicioSaludRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/routes/servicioSaludRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/servicioSalud_dependencies.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServicioSalud/infraestructure/servicioSalud_dependencies.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +33,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -28,11 +56,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "GaelAHV",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "GaelAHV2",
     "go.import.settings.migrated": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -40,7 +71,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/home/oldroot/Escritorio/SUMS/sums/node_modules/typescript/lib",
+    "ts.external.directory.path": "/home/oldroot/Escritorio/ESTANCIA PROYECTO/sums/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -48,7 +79,7 @@
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
-      <kind />
+      <kind value="FILE" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <method v="2" />
@@ -56,7 +87,7 @@
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
-      <kind />
+      <kind value="DIRECTORY" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -124,8 +155,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -140,6 +171,7 @@
       <workItem from="1741836739023" duration="4031000" />
       <workItem from="1741889042527" duration="365000" />
       <workItem from="1741889424518" duration="18000" />
+      <workItem from="1744832771375" duration="4935000" />
     </task>
     <servers />
   </component>

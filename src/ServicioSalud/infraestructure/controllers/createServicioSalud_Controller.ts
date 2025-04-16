@@ -7,9 +7,7 @@ export class CreateServicioSalud_Controller {
   async run(req: Request, res: Response) {
     try {
       const servicioSaludData = req.body;
-      const newServicioSalud = await this.createServicioSalud.execute(
-        servicioSaludData
-      );
+      const newServicioSalud = await this.createServicioSalud.execute(servicioSaludData);
       res.status(201).json(newServicioSalud);
     } catch (error: any) {
       res.status(400).json({ error: error.message });
