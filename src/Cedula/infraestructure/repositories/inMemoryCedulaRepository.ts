@@ -1,39 +1,79 @@
 import { Cedula } from '../../domain/entities/cedula';
 import { ICedulaRepository } from '../../domain/repositories/ICedulaRepository';
+import { db } from '../../../core/db_postgresql';
 
 export class InMemoryCedulaRepository implements ICedulaRepository {
-    private cedulas: Cedula[] = [];
-
-    create(cedula: Cedula): Promise<Cedula> {
-        this.cedulas.push(cedula);
-        return Promise.resolve(cedula);
+    async create(cedula: Cedula): Promise<Cedula> {
+        const query = `
+            INSERT INTO cedula (unidad_salud_id, entrevistador_id, familia_id, 
+                esquema_vacunacion_id, composicion_familiar_id)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *;
+        `;
+        const values = [
+            cedula.unidad_salud_id,
+            cedula.entrevistador_id,
+            cedula.familia_id,
+            cedula.esquema_vacunacion_id,
+            cedula.composicion_familiar_id
+        ];
+        const result = await db.executePreparedQuery(query, values);
+        return result.rows[0];
     }
 
-    update(cedula: Cedula): Promise<Cedula> {
-        const index = this.cedulas.findIndex(c => c.id === cedula.id);
-        if (index !== -1) {
-            this.cedulas[index] = cedula;
-            return Promise.resolve(cedula);
-        } else {
-            return Promise.reject(new Error('Cedula not found'));
+    async update(cedula: Cedula): Promise<Cedula> {
+        const query = `
+            UPDATE cedula
+            SET unidad_salud_id = $1, 
+                entrevistador_id = $2, 
+                familia_id = $3, 
+                esquema_vacunacion_id = $4, 
+                composicion_familiar_id = $5
+            WHERE id = $6
+            RETURNING *;
+        `;
+        const values = [
+            cedula.unidad_salud_id,
+            cedula.entrevistador_id,
+            cedula.familia_id,
+            cedula.esquema_vacunacion_id,
+            cedula.composicion_familiar_id,
+            cedula.id
+        ];
+        const result = await db.executePreparedQuery(query, values);
+        if (result.rowCount === 0) {
+            throw new Error('Cedula not found');
         }
+        return result.rows[0];
     }
 
-    readById(id: number): Promise<Cedula> {
-        const cedula = this.cedulas.find(c => c.id === id);
-        if (cedula) {
-            return Promise.resolve(cedula);
-        } else {
-            return Promise.reject(new Error('Cedula not found'));
+    async readById(id: number): Promise<Cedula> {
+        const query = `
+            SELECT * FROM cedula
+            WHERE id = $1;
+        `;
+        const values = [id];
+        const result = await db.executePreparedQuery(query, values);
+        if (result.rowCount === 0) {
+            throw new Error('Cedula not found');
         }
+        return result.rows[0];
     }
 
-    delete(id: number): Promise<void> {
-        this.cedulas = this.cedulas.filter(c => c.id !== id);
-        return Promise.resolve();
+    async delete(id: number): Promise<void> {
+        const query = `
+            DELETE FROM cedula
+            WHERE id = $1;
+        `;
+        const values = [id];
+        await db.executePreparedQuery(query, values);
     }
 
-    readAll(): Promise<Cedula[]> {
-        return Promise.resolve(this.cedulas);
+    async readAll(): Promise<Cedula[]> {
+        const query = `
+            SELECT * FROM cedula;
+        `;
+        const result = await db.executePreparedQuery(query, []);
+        return result.rows;
     }
 }

@@ -1,39 +1,61 @@
 import { Familia } from '../../domain/entities/familia';
 import { IFamiliaRepository } from '../../domain/repositories/IFamiliaRepository';
+import { db } from '../../../core/db_postgresql';
 
 export class InMemoryFamiliaRepository implements IFamiliaRepository {
-    private familias: Familia[] = [];
+  async create(familia: Familia): Promise<Familia> {
+    const query = `
+      INSERT INTO familia (unidad_id, entrevistador_id, fecha_encuesta)
+      VALUES ($1, $2, $3)
+      RETURNING *;
+    `;
+    const values = [familia.unidad_id, familia.entrevistador_id, familia.fecha_encuesta];
+    const result = await db.executePreparedQuery(query, values);
+    return result.rows[0];
+  }
 
-    create(familia: Familia): Promise<Familia> {
-        this.familias.push(familia);
-        return Promise.resolve(familia);
+  async update(familia: Familia): Promise<Familia> {
+    const query = `
+      UPDATE familia
+      SET unidad_id = $1, entrevistador_id = $2, fecha_encuesta = $3
+      WHERE id = $4
+      RETURNING *;
+    `;
+    const values = [familia.unidad_id, familia.entrevistador_id, familia.fecha_encuesta, familia.id];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error('Familia not found');
     }
+    return result.rows[0];
+  }
 
-    update(familia: Familia): Promise<Familia> {
-        const index = this.familias.findIndex(f => f.id === familia.id);
-        if (index !== -1) {
-            this.familias[index] = familia;
-            return Promise.resolve(familia);
-        } else {
-            return Promise.reject(new Error('Familia not found'));
-        }
+  async readById(id: number): Promise<Familia> {
+    const query = `
+      SELECT * FROM familia
+      WHERE id = $1;
+    `;
+    const values = [id];
+    const result = await db.executePreparedQuery(query, values);
+    if (result.rowCount === 0) {
+      throw new Error('Familia not found');
     }
+    return result.rows[0];
+  }
 
-    readById(id: number): Promise<Familia> {
-        const familia = this.familias.find(f => f.id === id);
-        if (familia) {
-            return Promise.resolve(familia);
-        } else {
-            return Promise.reject(new Error('Familia not found'));
-        }
-    }
+  async delete(id: number): Promise<void> {
+    const query = `
+      DELETE FROM familia
+      WHERE id = $1;
+    `;
+    const values = [id];
+    await db.executePreparedQuery(query, values);
+  }
 
-    delete(id: number): Promise<void> {
-        this.familias = this.familias.filter(f => f.id !== id);
-        return Promise.resolve();
-    }
-
-    readAll(): Promise<Familia[]> {
-        return Promise.resolve(this.familias);
-    }
+  async readAll(): Promise<Familia[]> {
+    const query = `
+      SELECT * FROM familia;
+    `;
+    const result = await db.executePreparedQuery(query, []);
+    return result.rows;
+  }
 }
