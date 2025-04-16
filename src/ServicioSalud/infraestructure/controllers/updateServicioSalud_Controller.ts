@@ -8,10 +8,7 @@ export class UpdateServicioSalud_Controller {
     try {
       const id = parseInt(req.params.id, 10);
       const servicioSaludData = req.body;
-      const updatedServicioSalud = await this.updateServicioSalud.execute(
-        id,
-        servicioSaludData
-      );
+      const updatedServicioSalud = await this.updateServicioSalud.execute(id, servicioSaludData);
       if (updatedServicioSalud) {
         res.status(200).json(updatedServicioSalud);
       } else {

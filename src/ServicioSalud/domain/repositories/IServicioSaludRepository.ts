@@ -1,4 +1,4 @@
-import { ServicioSalud } from "../entities/ServicioSalud";
+import { ServicioSalud } from "../entities/servicioSalud";
 
 export interface IServicioSaludRepository {
   create(servicioSalud: ServicioSalud): Promise<ServicioSalud>;

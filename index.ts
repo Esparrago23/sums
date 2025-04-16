@@ -15,6 +15,7 @@ import ServicioSaludRouter from './src/Servicios_salud/infraestructure/routes/se
 import DireccionRouter from './src/Direccion/infraestructure/routes/direccionRouter';
 import MaterialesConstruccionRouter from './src/MaterialesConstruccion/infraestructure/routes/materialesContruccionRouter';
 import EducacionRouter from './src/Educacion/infraestructure/routes/educacionRouter';
+import ConvivenciaAnimalesRouter from './src/ConvivenciaAnimales/infraestructure/routes/convivenciaAnimalesRouter';
 
 dotenv.config();
 
@@ -35,7 +36,8 @@ app.use('/sums',
     MiembroFamiliaRouter,
     FamiliaRouter,
     ViviendaRouter,
-    EducacionRouter
+    EducacionRouter,
+    ConvivenciaAnimalesRouter
 );
 
 const PORT = process.env.PORT || 3000;
