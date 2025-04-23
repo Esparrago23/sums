@@ -6,6 +6,8 @@ export class ServiciosBasicos {
         public agua_entubada: boolean,
         public drenaje: boolean,
         public wc: boolean,
-        public letrina: boolean
+        public letrina: boolean,
+        public al_ras_de_suelo: boolean,
+        public fosa_septica: boolean,
     ) {}
 }

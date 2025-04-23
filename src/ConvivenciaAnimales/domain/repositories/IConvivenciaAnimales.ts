@@ -1,4 +1,4 @@
-import { ConvivenciaAnimales} from "../entities/ConvivenciaAnimales";
+import { ConvivenciaAnimales } from "../entities/convivenciaAnimales";
 
 export interface IConvivenciaAnimalesRepository {
     create(convivenciaAnimales: ConvivenciaAnimales): Promise<ConvivenciaAnimales>

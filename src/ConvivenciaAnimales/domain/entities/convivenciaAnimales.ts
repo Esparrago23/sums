@@ -7,6 +7,10 @@ export class ConvivenciaAnimales {
         public esterilizacion_mascotas: boolean,
         public aves_corral: boolean,
         public bovinos: boolean,
-        public porcinos: boolean
+        public porcinos: boolean,
+        public comentarios_perros_gatos: string,
+        public comentarios_vacunacion: string,
+        public comentarios_esterilizacion: string,
+        public otros_animales: string,
     ) {}
 }
