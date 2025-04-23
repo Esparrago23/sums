@@ -8,7 +8,7 @@ export class DeleteServiciosBasicos_Controller {
     try {
       const id = parseInt(req.params.id, 10);
       await this.deleteServiciosBasicos.execute(id);
-      res.status(204).send();
+      res.status(200).json({ message: "Servicios básicos eliminados con éxito" });
     } catch (error: any) {
       res.status(400).json({ error: error.message });
     }

@@ -7,7 +7,9 @@ export class ServiciosBasicos {
         public drenaje: boolean,
         public wc: boolean,
         public letrina: boolean,
+        // Incluyo ambas propiedades para compatibilidad durante la transición
+        public alas_de_suelo: boolean,
         public al_ras_de_suelo: boolean,
-        public fosa_septica: boolean,
+        public fosa_septica: boolean
     ) {}
 }

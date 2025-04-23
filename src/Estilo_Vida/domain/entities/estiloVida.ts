@@ -1,23 +1,10 @@
-interface Toxicomanias {
-    // Falta Estructura de Base de Datos
-}
-
-interface EnfermedadesCronicas {
-    // Falta Estructura de Base de Datos
-}
-
-interface Alimentacion {
-    // Falta Estructura de Base de Datos
-}
-
 export class EstiloVida {
     constructor(
         public id: number,
         public persona_id: number,
-        public toxicomanias: Toxicomanias,
-        public enfermedades_cronicas: EnfermedadesCronicas,
+        public toxicomanias: any, // usando 'any' para el campo JSONB
         public actividad_fisica: boolean,
-        public alimentacion: Alimentacion,
+        public alimentacion: string,
         public higiene_personal: boolean
     ) {}
 }
