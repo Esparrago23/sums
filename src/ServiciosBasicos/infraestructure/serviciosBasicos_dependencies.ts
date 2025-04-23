@@ -25,3 +25,4 @@ export const readAllServiciosBasicosController = new ReadAllServiciosBasicos_Con
 export const readServiciosBasicosByIdController = new ReadServiciosBasicosById_Controller(readServiciosBasicosByIdUseCase);
 export const updateServiciosBasicosController = new UpdateServiciosBasicos_Controller(updateServiciosBasicosUseCase);
 export const deleteServiciosBasicosController = new DeleteServiciosBasicos_Controller(deleteServiciosBasicosUseCase);
+

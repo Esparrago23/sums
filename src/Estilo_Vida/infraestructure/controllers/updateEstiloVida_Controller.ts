@@ -12,7 +12,7 @@ export class UpdateEstiloVida_Controller {
       if (updatedEstiloVida) {
         res.status(200).json(updatedEstiloVida);
       } else {
-        res.status(404).json({ error: "Estilo de vida not found" });
+        res.status(404).json({ error: "Estilo de vida no encontrado" });
       }
     } catch (error: any) {
       res.status(400).json({ error: error.message });

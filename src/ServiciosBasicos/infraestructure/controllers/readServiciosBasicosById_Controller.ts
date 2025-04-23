@@ -11,7 +11,7 @@ export class ReadServiciosBasicosById_Controller {
       if (serviciosBasicos) {
         res.status(200).json(serviciosBasicos);
       } else {
-        res.status(404).json({ error: "Servicios Basicos not found" });
+        res.status(404).json({ error: "Servicios Básicos no encontrados" });
       }
     } catch (error: any) {
       res.status(400).json({ error: error.message });

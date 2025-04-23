@@ -1,4 +1,4 @@
-import { ConvivenciaAnimales } from "../domain/entities/ConvivenciaAnimales";
+import { ConvivenciaAnimales } from "../domain/entities/convivenciaAnimales";
 import { IConvivenciaAnimalesRepository } from "../domain/repositories/IConvivenciaAnimales";
 
 export class UpdateConvivenciaAnimalesUseCase {

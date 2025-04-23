@@ -12,7 +12,7 @@ export class UpdateServiciosBasicos_Controller {
       if (updatedServiciosBasicos) {
         res.status(200).json(updatedServiciosBasicos);
       } else {
-        res.status(404).json({ error: "Servicios Basicos not found" });
+        res.status(404).json({ error: "Servicios Básicos no encontrados" });
       }
     } catch (error: any) {
       res.status(400).json({ error: error.message });

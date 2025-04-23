@@ -25,3 +25,4 @@ export const readAllConvivenciaAnimalesController = new ReadAllConvivenciaAnimal
 export const deleteConvivenciaAnimalesController = new DeleteConvivenciaAnimales_Controller(deleteConvivenciaAnimalesUseCase);
 export const readConvivenciaAnimalesByIdController = new ReadConvivenciaAnimalesById_Controller(readConvivenciaAnimalesByIdUseCase);
 export const updateConvivenciaAnimalesController = new UpdateConvivenciaAnimales_Controller(updateConvivenciaAnimalesUseCase);
+
