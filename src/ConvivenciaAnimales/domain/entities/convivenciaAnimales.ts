@@ -1,4 +1,3 @@
-
 export class ConvivenciaAnimales {
     constructor(
         public id: number,
