@@ -5,7 +5,7 @@ import { db } from '../../../core/db_postgresql';
 export class InMemoryServiciosBasicosRepository implements IServiciosBasicosRepository {
   async create(serviciosBasicos: ServiciosBasicos): Promise<ServiciosBasicos> {
     const query = `
-      INSERT INTO servicios_basicos (cocina_separada, energia_electrica, agua_entubada, drenaje, wc, letrina, alas_de_suelo, fosa_septica)
+      INSERT INTO servicios_basicos (cocina_separada, energia_electrica, agua_entubada, drenaje, wc, letrina, al_ras_de_suelo, fosa_septica)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *;
     `;
@@ -16,7 +16,7 @@ export class InMemoryServiciosBasicosRepository implements IServiciosBasicosRepo
       serviciosBasicos.drenaje,
       serviciosBasicos.wc,
       serviciosBasicos.letrina,
-      serviciosBasicos.alas_de_suelo,
+      serviciosBasicos.al_ras_de_suelo,
       serviciosBasicos.fosa_septica
     ];
     const result = await db.executePreparedQuery(query, values);
@@ -27,7 +27,7 @@ export class InMemoryServiciosBasicosRepository implements IServiciosBasicosRepo
     const query = `
       UPDATE servicios_basicos
       SET cocina_separada = $1, energia_electrica = $2, agua_entubada = $3, drenaje = $4, 
-          wc = $5, letrina = $6, alas_de_suelo = $7, fosa_septica = $8
+          wc = $5, letrina = $6, al_ras_de_suelo = $7, fosa_septica = $8
       WHERE id = $9
       RETURNING *;
     `;
@@ -38,7 +38,7 @@ export class InMemoryServiciosBasicosRepository implements IServiciosBasicosRepo
       serviciosBasicos.drenaje,
       serviciosBasicos.wc,
       serviciosBasicos.letrina,
-      serviciosBasicos.alas_de_suelo,
+      serviciosBasicos.al_ras_de_suelo,
       serviciosBasicos.fosa_septica,
       serviciosBasicos.id
     ];
