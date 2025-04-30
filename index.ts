@@ -13,7 +13,7 @@ import EstiloVidaRouter from './src/Estilo_Vida/infraestructure/routes/estiloVid
 import VacunacionRouter from './src/Vacunacion/infraestructure/routes/VacunacionRouter';
 import ServicioSaludRouter from './src/ServicioSalud/infraestructure/routes/servicioSaludRouter';
 import DireccionRouter from './src/Direccion/infraestructure/routes/direccionRouter';
-import MaterialesConstruccionRouter from './src/MaterialesConstruccion/infraestructure/routes/materialesContruccionRouter';
+import MaterialesConstruccionRouter from './src/MaterialesVivienda/infraestructure/routes/materialesContruccionRouter';
 import UnidadSaludRouter from './src/UnidadSalud/infraestructure/routes/unidadSaludRouter';
 import ConvivenciaAnimalesRouter from './src/ConvivenciaAnimales/infraestructure/routes/convivenciaAnimalesRouter';
 import EducacionRouter from './src/Educacion/infraestructure/routes/educacionRouter';

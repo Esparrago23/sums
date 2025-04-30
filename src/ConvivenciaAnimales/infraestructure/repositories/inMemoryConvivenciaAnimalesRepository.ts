@@ -7,7 +7,7 @@ export class InMemoryConvivenciaAnimalesRepository implements IConvivenciaAnimal
         const query = `
             INSERT INTO convivencia_animales (
                 familia_id, perros_gatos, vacunacion_mascotas, esterilizacion_mascotas,
-                aves_ornamental, bovinos, porcinos, pollos, comentarios_perros_gatos,
+                aves_corral, bovinos, porcinos, pollos, comentarios_perros_gatos,
                 comentarios_vacunacion, comentarios_esterilizacion, otros_animales
             )
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
@@ -18,10 +18,9 @@ export class InMemoryConvivenciaAnimalesRepository implements IConvivenciaAnimal
             convivenciaAnimales.perros_gatos,
             convivenciaAnimales.vacunacion_mascotas,
             convivenciaAnimales.esterilizacion_mascotas,
-            convivenciaAnimales.aves_ornamental,
+            convivenciaAnimales.aves_corral,
             convivenciaAnimales.bovinos,
             convivenciaAnimales.porcinos,
-            convivenciaAnimales.pollos,
             convivenciaAnimales.comentarios_perros_gatos,
             convivenciaAnimales.comentarios_vacunacion,
             convivenciaAnimales.comentarios_esterilizacion,
@@ -35,7 +34,7 @@ export class InMemoryConvivenciaAnimalesRepository implements IConvivenciaAnimal
         const query = `
             UPDATE convivencia_animales
             SET familia_id = $1, perros_gatos = $2, vacunacion_mascotas = $3, 
-                esterilizacion_mascotas = $4, aves_ornamental = $5, bovinos = $6, 
+                esterilizacion_mascotas = $4, aves_corral = $5, bovinos = $6, 
                 porcinos = $7, pollos = $8, comentarios_perros_gatos = $9,
                 comentarios_vacunacion = $10, comentarios_esterilizacion = $11,
                 otros_animales = $12
@@ -47,10 +46,9 @@ export class InMemoryConvivenciaAnimalesRepository implements IConvivenciaAnimal
             convivenciaAnimales.perros_gatos,
             convivenciaAnimales.vacunacion_mascotas,
             convivenciaAnimales.esterilizacion_mascotas,
-            convivenciaAnimales.aves_ornamental,
+            convivenciaAnimales.aves_corral,
             convivenciaAnimales.bovinos,
             convivenciaAnimales.porcinos,
-            convivenciaAnimales.pollos,
             convivenciaAnimales.comentarios_perros_gatos,
             convivenciaAnimales.comentarios_vacunacion,
             convivenciaAnimales.comentarios_esterilizacion,
