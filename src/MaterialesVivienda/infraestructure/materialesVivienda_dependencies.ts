@@ -1,4 +1,4 @@
-import { InMemoryMaterialesConstruccionRepository } from '../infraestructure/repository/inMemoryMaterialesViviendaRepository';
+import { InMemoryMaterialesViviendaRepository } from './repository/inMemoryMaterialesViviendaRepository';
 import { CreateMaterialesViviendaUseCase } from '../application/createMaterialesVivienda_UseCase';
 import { ReadAllMaterialesViviendaUseCase } from '../application/readAllMaterialesVivienda_UseCase';
 import { DeleteMaterialesViviendaUseCase } from '../application/deleteMaterialesVivienda_UseCase';
@@ -11,7 +11,7 @@ import { DeleteMaterialesVivienda_Controller } from './controllers/deleteMateria
 import { ReadMaterialesViviendaById_Controller } from './controllers/readMaterialesViviendaById_Controller';
 import { UpdateMaterialesVivienda_Controller } from './controllers/updateMaterialesVivienda_Controller';
 
-export const materialesViviendaRepository = new InMemoryMaterialesConstruccionRepository();
+export const materialesViviendaRepository = new InMemoryMaterialesViviendaRepository();
 
 export const createMaterialesViviendaUseCase = new CreateMaterialesViviendaUseCase(materialesViviendaRepository);
 export const readAllMaterialesViviendaUseCase = new ReadAllMaterialesViviendaUseCase(materialesViviendaRepository);
