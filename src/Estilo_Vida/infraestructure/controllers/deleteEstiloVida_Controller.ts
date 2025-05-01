@@ -8,7 +8,7 @@ export class DeleteEstiloVida_Controller {
     try {
       const id = parseInt(req.params.id, 10);
       await this.deleteEstiloVida.execute(id);
-      res.status(200).json({ message: "Estilo de vida deleted successfully" });
+      res.status(200).json({ message: "Estilo de vida eliminado con éxito" });
     } catch (error: any) {
       res.status(400).json({ error: error.message });
     }
