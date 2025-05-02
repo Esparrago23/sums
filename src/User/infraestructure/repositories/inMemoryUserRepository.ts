@@ -1,7 +1,7 @@
 import { User } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepositoy';
 import { db } from '../../../core/db_postgresql';
-
+import { comparePassword } from '../services/bcrypt';
 export class InMemoryUserRepository implements IUserRepository {
     async create(user: User): Promise<User> {
         const query = `
@@ -72,24 +72,32 @@ export class InMemoryUserRepository implements IUserRepository {
     }
 
     async findByCredentials(idUsuario: string, contraseña: string): Promise<User | null> {
-        const query = `
-            SELECT * FROM users
-            WHERE id_usuario = $1;
-        `;
-        const values = [idUsuario];
-        const result = await db.executePreparedQuery(query, values);
+        try {
+            const query = `
+                SELECT * FROM users
+                WHERE id_usuario = $1;
+            `;
+            const values = [idUsuario];
+            const result = await db.executePreparedQuery(query, values);
+            
+            if (result.rowCount === 0) {
+                console.log('Usuario no encontrado');
+                return null;
+            }
         
-        if (result.rowCount === 0) {
+            const user = result.rows[0];
+            // Usar bcrypt para comparar contraseñas
+            const isPasswordValid = await comparePassword(contraseña, user.contraseña);
+            console.log('Contraseña válida:', isPasswordValid);
+            
+            if (!isPasswordValid) {
+                return null;
+            }
+        
+            return user;
+        } catch (error) {
+            console.error('Error en findByCredentials:', error);
             return null;
         }
-    
-        const user = result.rows[0];
-        const isPasswordValid = contraseña === user.contraseña;
-        
-        if (!isPasswordValid) {
-            return null;
-        }
-    
-        return user;
     }
 }
