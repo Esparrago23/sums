@@ -1,6 +1,7 @@
 import { Entrevistador } from '../../domain/entities/entrevistador';
 import { IEntrevistadorRepository } from '../../domain/repositories/IEntrevistadorRepository';
 import { db } from '../../../core/db_postgresql';
+import { formatDateForDB, parseDBDate } from '../../../core/date_utils';
 
 export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository {
   async create(entrevistador: Entrevistador): Promise<Entrevistador> {
@@ -9,9 +10,18 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
       VALUES ($1, $2, $3, $4)
       RETURNING *;
     `;
-    const values = [entrevistador.nombre, entrevistador.fecha_registro, entrevistador.unidad_salud_id, entrevistador.datos_laborales_id];
+    const values = [
+      entrevistador.nombre,
+      formatDateForDB(entrevistador.fecha_registro),
+      entrevistador.unidad_salud_id,
+      entrevistador.datos_laborales_id
+    ];
     const result = await db.executePreparedQuery(query, values);
-    return result.rows[0];
+
+    // Parsear la fecha en el resultado
+    const savedEntrevistador = result.rows[0];
+    savedEntrevistador.fecha_registro = parseDBDate(savedEntrevistador.fecha_registro);
+    return savedEntrevistador;
   }
 
   async update(entrevistador: Entrevistador): Promise<Entrevistador> {
@@ -21,12 +31,22 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
       WHERE id = $5
       RETURNING *;
     `;
-    const values = [entrevistador.nombre, entrevistador.fecha_registro, entrevistador.unidad_salud_id, entrevistador.datos_laborales_id, entrevistador.id];
+    const values = [
+      entrevistador.nombre,
+      formatDateForDB(entrevistador.fecha_registro),
+      entrevistador.unidad_salud_id,
+      entrevistador.datos_laborales_id,
+      entrevistador.id
+    ];
     const result = await db.executePreparedQuery(query, values);
     if (result.rowCount === 0) {
       throw new Error('Entrevistador not found');
     }
-    return result.rows[0];
+
+    // Parsear la fecha en el resultado
+    const updatedEntrevistador = result.rows[0];
+    updatedEntrevistador.fecha_registro = parseDBDate(updatedEntrevistador.fecha_registro);
+    return updatedEntrevistador;
   }
 
   async readById(id: number): Promise<Entrevistador | null> {
@@ -39,7 +59,11 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
     if (result.rowCount === 0) {
       return null;
     }
-    return result.rows[0];
+
+    // Parsear la fecha en el resultado
+    const entrevistador = result.rows[0];
+    entrevistador.fecha_registro = parseDBDate(entrevistador.fecha_registro);
+    return entrevistador;
   }
 
   async delete(id: number): Promise<void> {
@@ -56,6 +80,11 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
       SELECT * FROM entrevistador;
     `;
     const result = await db.executePreparedQuery(query, []);
-    return result.rows;
+
+    // Parsear las fechas en los resultados
+    return result.rows.map((row: any) => {
+      row.fecha_registro = parseDBDate(row.fecha_registro);
+      return row;
+    });
   }
 }

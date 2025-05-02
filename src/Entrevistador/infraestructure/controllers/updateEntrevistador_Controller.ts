@@ -8,6 +8,12 @@ export class UpdateEntrevistador_Controller {
         try {
             const id = parseInt(req.params.id, 10);
             const entrevistadorData = req.body;
+
+            // Convertir la fecha si viene como string
+            if (typeof entrevistadorData.fecha_registro === 'string') {
+                entrevistadorData.fecha_registro = new Date(entrevistadorData.fecha_registro);
+            }
+
             const updatedEntrevistador = await this.updateEntrevistador.execute(id, entrevistadorData);
             if (updatedEntrevistador) {
                 res.status(200).json(updatedEntrevistador);

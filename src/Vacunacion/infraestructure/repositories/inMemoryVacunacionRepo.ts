@@ -1,6 +1,7 @@
 import { Vacunacion } from '../../domain/entities/vacunacion';
 import { Ivacunacion } from '../../domain/repositories/Ivacunacion';
 import { db } from '../../../core/db_postgresql';
+import { formatDateForDB, parseDBDate } from '../../../core/date_utils';
 
 export class InMemoryVacunacionRepo implements Ivacunacion {
   async create(vacunacion: Vacunacion): Promise<Vacunacion> {
@@ -11,11 +12,15 @@ export class InMemoryVacunacionRepo implements Ivacunacion {
     `;
     const values = [
       vacunacion.persona_id,
-      vacunacion.fecha_aplicacion,
+      formatDateForDB(vacunacion.fecha_aplicacion),
       vacunacion.dosis_id
     ];
     const result = await db.executePreparedQuery(query, values);
-    return result.rows[0];
+
+    // Parsear la fecha en el resultado
+    const savedVacunacion = result.rows[0];
+    savedVacunacion.fecha_aplicacion = parseDBDate(savedVacunacion.fecha_aplicacion);
+    return savedVacunacion;
   }
 
   async update(vacunacion: Vacunacion): Promise<Vacunacion> {
@@ -27,7 +32,7 @@ export class InMemoryVacunacionRepo implements Ivacunacion {
     `;
     const values = [
       vacunacion.persona_id,
-      vacunacion.fecha_aplicacion,
+      formatDateForDB(vacunacion.fecha_aplicacion),
       vacunacion.dosis_id,
       vacunacion.id
     ];
@@ -35,7 +40,11 @@ export class InMemoryVacunacionRepo implements Ivacunacion {
     if (result.rowCount === 0) {
       throw new Error('Vacunación no encontrada');
     }
-    return result.rows[0];
+
+    // Parsear la fecha en el resultado
+    const updatedVacunacion = result.rows[0];
+    updatedVacunacion.fecha_aplicacion = parseDBDate(updatedVacunacion.fecha_aplicacion);
+    return updatedVacunacion;
   }
 
   async readById(id: number): Promise<Vacunacion> {
@@ -48,7 +57,11 @@ export class InMemoryVacunacionRepo implements Ivacunacion {
     if (result.rowCount === 0) {
       throw new Error('Vacunación no encontrada');
     }
-    return result.rows[0];
+
+    // Parsear la fecha en el resultado
+    const vacunacion = result.rows[0];
+    vacunacion.fecha_aplicacion = parseDBDate(vacunacion.fecha_aplicacion);
+    return vacunacion;
   }
 
   async delete(id: number): Promise<void> {
@@ -65,6 +78,11 @@ export class InMemoryVacunacionRepo implements Ivacunacion {
       SELECT * FROM vacunacion;
     `;
     const result = await db.executePreparedQuery(query, []);
-    return result.rows;
+
+    // Parsear las fechas en los resultados
+    return result.rows.map((row: any) => {
+      row.fecha_aplicacion = parseDBDate(row.fecha_aplicacion);
+      return row;
+    });
   }
 }
