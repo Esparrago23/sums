@@ -8,6 +8,12 @@ export class UpdatePersona_Controller {
     try {
       const id = parseInt(req.params.id, 10);
       const personaData = req.body;
+
+      // Convertir la fecha si viene como string
+      if (typeof personaData.fecha_nacimiento === 'string') {
+        personaData.fecha_nacimiento = new Date(personaData.fecha_nacimiento);
+      }
+
       const updatedPersona = await this.updatePersona.execute(id, personaData);
       if (updatedPersona) {
         res.status(200).json(updatedPersona);

@@ -8,14 +8,20 @@ export class UpdateVacunacion_Controller {
     try {
       const id = parseInt(req.params.id, 10);
       const vacunacionData = req.body;
-      const updatedVacunacion = await this.updateVacunacion.execute(id,vacunacionData);
+
+      // Convertir la fecha si viene como string
+      if (typeof vacunacionData.fecha_aplicacion === 'string') {
+        vacunacionData.fecha_aplicacion = new Date(vacunacionData.fecha_aplicacion);
+      }
+
+      const updatedVacunacion = await this.updateVacunacion.execute(id, vacunacionData);
       if (updatedVacunacion) {
         res.status(200).json(updatedVacunacion);
       } else {
         res.status(404).json({ error: "Vacunacion not found" });
       }
     } catch (error: any) {
-        res.status(400).json({ error: error.message });
-      }
+      res.status(400).json({ error: error.message });
+    }
   }
 }

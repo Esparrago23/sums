@@ -1,6 +1,7 @@
 import { User } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepositoy';
 import { db } from '../../../core/db_postgresql';
+import { parseDBDate } from '../../../core/date_utils';
 
 export class InMemoryUserRepository implements IUserRepository {
     async create(user: User): Promise<User> {
@@ -17,7 +18,13 @@ export class InMemoryUserRepository implements IUserRepository {
             user.activo
         ];
         const result = await db.executePreparedQuery(query, values);
-        return result.rows[0];
+
+        // Parsear la fecha en el resultado si existe
+        const savedUser = result.rows[0];
+        if (savedUser.fecha_registro) {
+            savedUser.fecha_registro = parseDBDate(savedUser.fecha_registro);
+        }
+        return savedUser;
     }
 
     async update(user: User): Promise<User> {
@@ -38,7 +45,13 @@ export class InMemoryUserRepository implements IUserRepository {
         if (result.rowCount === 0) {
             throw new Error('User not found');
         }
-        return result.rows[0];
+
+        // Parsear la fecha en el resultado si existe
+        const updatedUser = result.rows[0];
+        if (updatedUser.fecha_registro) {
+            updatedUser.fecha_registro = parseDBDate(updatedUser.fecha_registro);
+        }
+        return updatedUser;
     }
 
     async readById(id: string): Promise<User> {
@@ -51,7 +64,13 @@ export class InMemoryUserRepository implements IUserRepository {
         if (result.rowCount === 0) {
             throw new Error('User not found');
         }
-        return result.rows[0];
+
+        // Parsear la fecha en el resultado si existe
+        const user = result.rows[0];
+        if (user.fecha_registro) {
+            user.fecha_registro = parseDBDate(user.fecha_registro);
+        }
+        return user;
     }
 
     async delete(id: string): Promise<void> {
@@ -68,7 +87,14 @@ export class InMemoryUserRepository implements IUserRepository {
             SELECT * FROM users;
         `;
         const result = await db.executePreparedQuery(query, []);
-        return result.rows;
+
+        // Parsear las fechas en los resultados
+        return result.rows.map((row: any) => {
+            if (row.fecha_registro) {
+                row.fecha_registro = parseDBDate(row.fecha_registro);
+            }
+            return row;
+        });
     }
 
     async findByCredentials(idUsuario: string, contraseña: string): Promise<User | null> {
@@ -78,18 +104,22 @@ export class InMemoryUserRepository implements IUserRepository {
         `;
         const values = [idUsuario];
         const result = await db.executePreparedQuery(query, values);
-        
+
         if (result.rowCount === 0) {
             return null;
         }
-    
+
         const user = result.rows[0];
         const isPasswordValid = contraseña === user.contraseña;
-        
+
         if (!isPasswordValid) {
             return null;
         }
-    
+
+        // Parsear la fecha en el resultado si existe
+        if (user.fecha_registro) {
+            user.fecha_registro = parseDBDate(user.fecha_registro);
+        }
         return user;
     }
 }

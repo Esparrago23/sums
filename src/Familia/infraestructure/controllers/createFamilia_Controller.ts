@@ -7,6 +7,12 @@ export class CreateFamilia_Controller {
     async run(req: Request, res: Response) {
         try {
             const familiaData = req.body;
+
+            // Convertir la fecha si viene como string
+            if (typeof familiaData.fecha_encuesta === 'string') {
+                familiaData.fecha_encuesta = new Date(familiaData.fecha_encuesta);
+            }
+
             const newFamilia = await this.createFamilia.execute(familiaData);
             res.status(201).json(newFamilia);
         } catch (error: any) {
