@@ -1,40 +1,95 @@
 import { User } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepositoy';
+import { db } from '../../../core/db_postgresql';
 
 export class InMemoryUserRepository implements IUserRepository {
-  private users: User[] = [];
-
-  create(user: User): Promise<User> {
-    this.users.push(user);
-    return Promise.resolve(user);
-  }
-
-update(user: User): Promise<User> {
-    const index = this.users.findIndex(user => user.idUsuario === user.idUsuario);
-    if (index !== -1) {
-      this.users[index] = user;
-      return Promise.resolve(user);
-    } else {
-      return Promise.reject(new Error('User not found'));
+    async create(user: User): Promise<User> {
+        const query = `
+            INSERT INTO users (id_usuario, nombre_usuario, contraseña, rol, activo)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *;
+        `;
+        const values = [
+            user.idUsuario,
+            user.nombreUsuario,
+            user.contraseña,
+            user.rol,
+            user.activo
+        ];
+        const result = await db.executePreparedQuery(query, values);
+        return result.rows[0];
     }
-}
-  
-  readById(idUsuario: string): Promise<User> {
-    const user = this.users.find(user => user.idUsuario === idUsuario);
-    if (user) {
-      console.log(user.idUsuario);
-      return Promise.resolve(user);
-    } else {
-      return Promise.reject(new Error('User not found'));
+
+    async update(user: User): Promise<User> {
+        const query = `
+            UPDATE users
+            SET nombre_usuario = $1, contraseña = $2, rol = $3, activo = $4
+            WHERE id_usuario = $5
+            RETURNING *;
+        `;
+        const values = [
+            user.nombreUsuario,
+            user.contraseña,
+            user.rol,
+            user.activo,
+            user.idUsuario
+        ];
+        const result = await db.executePreparedQuery(query, values);
+        if (result.rowCount === 0) {
+            throw new Error('User not found');
+        }
+        return result.rows[0];
     }
-  }
 
-  delete(idUsuario: string): Promise<void> {
-    this.users = this.users.filter(user => user.idUsuario !== idUsuario);
-    return Promise.resolve();
-  }
+    async readById(id: string): Promise<User> {
+        const query = `
+            SELECT * FROM users
+            WHERE id_usuario = $1;
+        `;
+        const values = [id];
+        const result = await db.executePreparedQuery(query, values);
+        if (result.rowCount === 0) {
+            throw new Error('User not found');
+        }
+        return result.rows[0];
+    }
 
-  readAll(): Promise<User[]> {
-    return Promise.resolve(this.users);
-  }
+    async delete(id: string): Promise<void> {
+        const query = `
+            DELETE FROM users
+            WHERE id_usuario = $1;
+        `;
+        const values = [id];
+        await db.executePreparedQuery(query, values);
+    }
+
+    async readAll(): Promise<User[]> {
+        const query = `
+            SELECT * FROM users;
+        `;
+        const result = await db.executePreparedQuery(query, []);
+        return result.rows;
+    }
+
+    async findByCredentials(idUsuario: string, contraseña: string): Promise<User | null> {
+        const query = `
+            SELECT * FROM users
+            WHERE id_usuario = $1;
+        `;
+        const values = [idUsuario];
+        const result = await db.executePreparedQuery(query, values);
+        
+        if (result.rowCount === 0) {
+            return null;
+        }
+    
+        const user = result.rows[0];
+        const isPasswordValid = contraseña === user.contraseña;
+        
+        if (!isPasswordValid) {
+            return null;
+        }
+    
+        return user;
+    }
 }
