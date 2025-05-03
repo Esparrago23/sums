@@ -1,4 +1,5 @@
-import { EstiloVida } from "../entities/estiloVida";
+import { EstiloVida, EnfermedadesCronicas } from "../entities/estiloVida";
+
 
 export interface IEstiloVidaRepository {
   create(estiloVida: EstiloVida): Promise<EstiloVida>;

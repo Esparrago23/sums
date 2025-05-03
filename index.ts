@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './src/docs/swagger';
 
 import EntrevistadorRouter from './src/Entrevistador/infraestructure/routes/entrevistadorRouter';
 import DatosLaboralesRouter from './src/DatosLaborales/infraestructure/routes/datosLaboralesRouter';
@@ -16,7 +18,7 @@ import UnidadSaludRouter from './src/UnidadSalud/infraestructure/routes/unidadSa
 import ConvivenciaAnimalesRouter from './src/ConvivenciaAnimales/infraestructure/routes/convivenciaAnimalesRouter';
 import EducacionRouter from './src/Educacion/infraestructure/routes/educacionRouter';
 import SaludFamiliarRouter from './src/SaludFamiliar/infraestructure/routes/saludFamiliarRouter';
-import ServiciosBasicosRouter from './src/ServiciosBasicos/infraestructure/serviciosBasicos_routes';
+import ServiciosBasicosRouter from './src/ServiciosBasicos/infraestructure/routes/serviciosBasicos_routes';
 import MaterialesViviendaRouter from './src/MaterialesVivienda/infraestructure/routes/materialesContruccionRouter';
 import ServiciosSaludRouter from './src/ServiciosSalud/infraestructure/routes/serviciosSaludRouter';
 import VacunasRouter from './src/Vacunas/infraestructure/routes/vacunasRouter';
@@ -25,6 +27,9 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+// Documentación Swagger
+app.use('/sums/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/sums',  
     CedulaRouter,
