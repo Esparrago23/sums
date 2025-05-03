@@ -7,3 +7,32 @@ export class Entrevistador {
         public datos_laborales_id: number
     ) {}
 }
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Entrevistador:
+ *       type: object
+ *       required:
+ *         - nombre
+ *         - unidad_salud_id
+ *         - datos_laborales_id
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: ID del entrevistador
+ *         nombre:
+ *           type: string
+ *           description: Nombre del entrevistador
+ *         fecha_registro:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de registro
+ *         unidad_salud_id:
+ *           type: integer
+ *           description: ID de la unidad de salud asociada
+ *         datos_laborales_id:
+ *           type: integer
+ *           description: ID de los datos laborales
+ */
