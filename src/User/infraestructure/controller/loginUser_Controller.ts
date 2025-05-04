@@ -1,4 +1,3 @@
-// src/User/infraestructure/controller/loginUser_Controller.ts
 import { Request, Response } from "express";
 import { LoginUserUseCase } from "../../application/loginUser_UseCase";
 

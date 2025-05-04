@@ -1,4 +1,4 @@
-import { EstiloVida } from '../../domain/entities/estiloVida';
+import { EstiloVida, Toxicomanias,EnfermedadesCronicas, Alimentacion } from '../../domain/entities/estiloVida';
 import { IEstiloVidaRepository } from '../../domain/repositories/IEstiloVidaRepository';
 import { db } from '../../../core/db_postgresql';
 

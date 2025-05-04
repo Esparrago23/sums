@@ -7,10 +7,10 @@ export class InMemoryConvivenciaAnimalesRepository implements IConvivenciaAnimal
         const query = `
             INSERT INTO convivencia_animales (
                 familia_id, perros_gatos, vacunacion_mascotas, esterilizacion_mascotas,
-                aves_corral, bovinos, porcinos, pollos, comentarios_perros_gatos,
+                aves_corral, bovinos, porcinos, comentarios_perros_gatos,
                 comentarios_vacunacion, comentarios_esterilizacion, otros_animales
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
             RETURNING *;
         `;
         const values = [

@@ -1,4 +1,3 @@
-// src/User/infraestructure/repositories/inMemoryUserRepository.ts
 import { User } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepositoy';
 import { db } from '../../../core/db_postgresql';
@@ -120,7 +119,7 @@ export class InMemoryUserRepository implements IUserRepository {
         if (!isPasswordValid) {
             return null;
         }
-
+        
         // Parsear la fecha en el resultado si existe
         if (user.fecha_registro) {
             user.fecha_registro = parseDBDate(user.fecha_registro);

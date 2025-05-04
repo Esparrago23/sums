@@ -1,4 +1,3 @@
-// src/Entrevistador/domain/entities/entrevistador.ts
 export class Entrevistador {
     constructor(
         public id: number,
@@ -9,3 +8,4 @@ export class Entrevistador {
         public rol_id: number  // Nuevo campo para asociar con la tabla rol
     ) {}
 }
+
