@@ -1,10 +1,10 @@
-import { User } from "../domain/entities/User";
+// src/User/application/deleteUser_UseCase.ts
 import { IUserRepository } from "../domain/repositories/IUserRepositoy";
 
 export class DeleteUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
-  async execute(id: string): Promise<void> {
+  async execute(id: number): Promise<void> {
     return this.userRepository.delete(id);
   }
 }

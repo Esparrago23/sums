@@ -1,4 +1,4 @@
-// src/Post/infrastructure/services/dependencies.ts
+// src/User/infraestructure/user_dependencies.ts
 import { InMemoryUserRepository } from './repositories/inMemoryUserRepository';
 
 import { CreateUserUseCase } from '../application/createUser_UseCase';
@@ -15,9 +15,6 @@ import { DeleteUser_Controller } from './controller/deleteUser_Controller';
 import { ReadUserById_Controller } from './controller/readUserById_Controller';
 import { UpdateUser_Controller } from './controller/updateUser_Controller';
 import { LoginUser_Controller } from './controller/loginUser_Controller';
-
-//import { hashPassword, comparePassword } from './services/bcrypt';
-//import { generateToken, verifyToken } from './services/jwt';
 
 export const userRepository = new InMemoryUserRepository();
 

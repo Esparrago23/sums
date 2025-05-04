@@ -1,3 +1,4 @@
+// src/User/infraestructure/controller/loginUser_Controller.ts
 import { Request, Response } from "express";
 import { LoginUserUseCase } from "../../application/loginUser_UseCase";
 
@@ -6,8 +7,8 @@ export class LoginUser_Controller {
 
     async run(req: Request, res: Response) {
         try {
-            const { idUsuario, contraseña } = req.body;
-            const token = await this.loginUser.execute(idUsuario, contraseña);
+            const { nombre_usuario, contrasena } = req.body;
+            const token = await this.loginUser.execute(nombre_usuario, contrasena);
 
             if (token) {
                 res.status(200).json({ token });
