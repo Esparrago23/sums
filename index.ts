@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 import { swaggerSpec } from './src/docs/swagger';
 
 import EntrevistadorRouter from './src/Entrevistador/infraestructure/routes/entrevistadorRouter';
@@ -26,9 +27,16 @@ import DosisRouter from './src/Dosis/infraestructure/routes/dosisRouter';
 dotenv.config();
 
 const app = express();
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://frontend.com'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions)); 
 app.use(express.json());
 
-// Documentación Swagger
+
 app.use('/sums/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/sums',  
