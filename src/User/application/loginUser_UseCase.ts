@@ -4,9 +4,9 @@ import { generateToken } from "../infraestructure/services/jwt";
 export class LoginUserUseCase {
     constructor(private userRepository: IUserRepository) {}
 
-    async execute(idUsuario: string, contraseña: string): Promise<string | null> {
+    async execute(nombreUsuario: string, contraseña: string): Promise<string | null> {
         try {
-            const user = await this.userRepository.findByCredentials(idUsuario, contraseña);
+            const user = await this.userRepository.findByCredentials(nombreUsuario, contraseña);
             
             if (!user) {
                 return null;

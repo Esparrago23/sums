@@ -8,11 +8,6 @@ import {getAplicacionesPorAnioVacunaController, getDosisAplicadasPorPersonaContr
 
 getVacunacionPorSexoController
 export const router = express.Router();
-router.post("/vacunaciones",createVacunasController.run.bind(createVacunasController));
-router.get("/vacunaciones",readAllVacunasController.run.bind(readAllVacunasController));
-router.delete("/vacunaciones/:id",deleteVacunasController.run.bind(deleteVacunasController));
-router.get("/vacunaciones/:id",readVacunasByIdController.run.bind(readVacunasByIdController));
-router.put("/vacunaciones/:id",updateVacunasController.run.bind(updateVacunasController));
 // Total de aplicaciones por tipo de vacuna y dosis
 router.get("/vacunaciones/por-vacuna-dosis", getAplicacionesPorVacunaYDosisController.run.bind(getAplicacionesPorVacunaYDosisController));
 
@@ -34,141 +29,19 @@ router.get("/vacunaciones/por-rango-edad", getVacunacionPorRangoEdadController.r
 // Total de dosis aplicadas por persona (historial/resumen individual)
 router.get("/vacunaciones/dosis-por-persona", getDosisAplicadasPorPersonaController.run.bind(getDosisAplicadasPorPersonaController));
 
+router.post("/vacunaciones",createVacunasController.run.bind(createVacunasController));
+router.get("/vacunaciones",readAllVacunasController.run.bind(readAllVacunasController));
+router.delete("/vacunaciones/:id",deleteVacunasController.run.bind(deleteVacunasController));
+router.get("/vacunaciones/:id",readVacunasByIdController.run.bind(readVacunasByIdController));
+router.put("/vacunaciones/:id",updateVacunasController.run.bind(updateVacunasController));
 
 export default router;
 /**
  * @swagger
- * /vacunaciones/por_anio/{anio}:
- *   get:
- *     summary: Obtener aplicaciones de vacunas por año
- *     tags: [Vacunacion]
- *     parameters:
- *       - in: path
- *         name: anio
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Lista de aplicaciones por año
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Vacunacion'
- *       400:
- *         description: Error en la consulta
- *
- * /vacunaciones/por_vacuna/{vacuna_id}:
- *   get:
- *     summary: Obtener vacunaciones por tipo de vacuna
- *     tags: [Vacunacion]
- *     parameters:
- *       - in: path
- *         name: vacuna_id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Lista de vacunaciones por tipo
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Vacunacion'
- *
- * /vacunaciones/por_vacuna_dosis/{vacuna_id}/{dosis_id}:
- *   get:
- *     summary: Obtener aplicaciones por vacuna y dosis
- *     tags: [Vacunacion]
- *     parameters:
- *       - in: path
- *         name: vacuna_id
- *         required: true
- *         schema:
- *           type: integer
- *       - in: path
- *         name: dosis_id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Lista de aplicaciones por vacuna y dosis
- *
- * /vacunaciones/por_persona/{persona_id}:
- *   get:
- *     summary: Obtener dosis aplicadas por persona
- *     tags: [Vacunacion]
- *     parameters:
- *       - in: path
- *         name: persona_id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Lista de dosis aplicadas
- *
- * /vacunaciones/por_persona_vacuna/{persona_id}/{vacuna_id}:
- *   get:
- *     summary: Obtener vacunaciones por persona y tipo de vacuna
- *     tags: [Vacunacion]
- *     parameters:
- *       - in: path
- *         name: persona_id
- *         required: true
- *         schema:
- *           type: integer
- *       - in: path
- *         name: vacuna_id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Lista de vacunaciones específicas
- *
- * /vacunaciones/por_rango_edad/{edad_min}/{edad_max}:
- *   get:
- *     summary: Obtener vacunaciones por rango de edad
- *     tags: [Vacunacion]
- *     parameters:
- *       - in: path
- *         name: edad_min
- *         required: true
- *         schema:
- *           type: integer
- *       - in: path
- *         name: edad_max
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Lista de vacunaciones por rango de edad
- *
- * /vacunaciones/por_sexo/{sexo}:
- *   get:
- *     summary: Obtener vacunaciones por sexo
- *     tags: [Vacunacion]
- *     parameters:
- *       - in: path
- *         name: sexo
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Lista de vacunaciones por sexo
- *
  * /vacunaciones:
  *   post:
  *     summary: Crear un nuevo registro de vacunación
- *     tags: [Vacunacion]
+ *     tags: [Vacunaciones]
  *     requestBody:
  *       required: true
  *       content:
@@ -177,31 +50,27 @@ export default router;
  *             $ref: '#/components/schemas/Vacunacion'
  *     responses:
  *       201:
- *         description: Registro creado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Vacunacion'
+ *         description: Registro de vacunación creado exitosamente
  *       400:
  *         description: Datos inválidos
-
+ *
  *   get:
  *     summary: Obtener todos los registros de vacunación
- *     tags: [Vacunacion]
+ *     tags: [Vacunaciones]
  *     responses:
  *       200:
- *         description: Lista de vacunaciones
+ *         description: Lista de registros de vacunación
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Vacunacion'
-
+ *
  * /vacunaciones/{id}:
  *   get:
  *     summary: Obtener registro de vacunación por ID
- *     tags: [Vacunacion]
+ *     tags: [Vacunaciones]
  *     parameters:
  *       - in: path
  *         name: id
@@ -211,16 +80,12 @@ export default router;
  *     responses:
  *       200:
  *         description: Registro encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Vacunacion'
  *       404:
  *         description: No encontrado
-
+ *
  *   put:
  *     summary: Actualizar un registro de vacunación
- *     tags: [Vacunacion]
+ *     tags: [Vacunaciones]
  *     parameters:
  *       - in: path
  *         name: id
@@ -235,17 +100,13 @@ export default router;
  *             $ref: '#/components/schemas/Vacunacion'
  *     responses:
  *       200:
- *         description: Actualizado correctamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Vacunacion'
+ *         description: Registro actualizado
  *       404:
  *         description: No encontrado
-
+ *
  *   delete:
  *     summary: Eliminar un registro de vacunación
- *     tags: [Vacunacion]
+ *     tags: [Vacunaciones]
  *     parameters:
  *       - in: path
  *         name: id
@@ -257,4 +118,72 @@ export default router;
  *         description: Eliminado correctamente
  *       404:
  *         description: No encontrado
+ *
+ * /vacunaciones/por-vacuna-dosis:
+ *   get:
+ *     summary: Obtener total de aplicaciones por tipo de vacuna y dosis
+ *     tags: [Vacunaciones]
+ *     responses:
+ *       200:
+ *         description: Lista de aplicaciones por vacuna y dosis
+ *
+ * /vacunaciones/por-persona/{persona_id}:
+ *   get:
+ *     summary: Obtener aplicaciones por vacuna y dosis para una persona
+ *     tags: [Vacunaciones]
+ *     parameters:
+ *       - in: path
+ *         name: persona_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Lista de aplicaciones de la persona
+ *
+ * /vacunaciones/personas-por-vacuna:
+ *   get:
+ *     summary: Obtener número de personas vacunadas por cada vacuna
+ *     tags: [Vacunaciones]
+ *     responses:
+ *       200:
+ *         description: Estadísticas de personas vacunadas
+ *
+ * /vacunaciones/por-anio:
+ *   get:
+ *     summary: Obtener aplicaciones por año y tipo de vacuna
+ *     tags: [Vacunaciones]
+ *     responses:
+ *       200:
+ *         description: Estadísticas anuales de vacunación
+ *
+ * /vacunaciones/por-sexo/{sexo}:
+ *   get:
+ *     summary: Obtener vacunación segmentada por sexo
+ *     tags: [Vacunaciones]
+ *     parameters:
+ *       - in: path
+ *         name: sexo
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Estadísticas de vacunación por sexo
+ *
+ * /vacunaciones/por-rango-edad:
+ *   get:
+ *     summary: Obtener vacunación por rangos de edad
+ *     tags: [Vacunaciones]
+ *     responses:
+ *       200:
+ *         description: Estadísticas de vacunación por rango de edad
+ *
+ * /vacunaciones/dosis-por-persona:
+ *   get:
+ *     summary: Obtener total de dosis aplicadas por persona
+ *     tags: [Vacunaciones]
+ *     responses:
+ *       200:
+ *         description: Historial de dosis por persona
  */

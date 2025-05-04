@@ -98,7 +98,7 @@ export class InMemoryVacunacionRepo implements Ivacunacion {
       SELECT
         v.nombre AS vacuna,
         d.nombre AS tipo_dosis,
-        COUNT(*) AS total_aplicaciones
+        COUNT(*)::int AS total_aplicaciones
       FROM vacunacion va
       JOIN dosis d ON va.dosis_id = d.id
       JOIN vacunas v ON d.vacuna_id = v.id

@@ -6,8 +6,8 @@ export class LoginUser_Controller {
 
     async run(req: Request, res: Response) {
         try {
-            const { idUsuario, contraseña } = req.body;
-            const token = await this.loginUser.execute(idUsuario, contraseña);
+            const { nombreUsuario, contraseña } = req.body;
+            const token = await this.loginUser.execute(nombreUsuario, contraseña);
 
             if (token) {
                 res.status(200).json({ token });
