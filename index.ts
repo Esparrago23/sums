@@ -27,13 +27,15 @@ import DosisRouter from './src/Dosis/infraestructure/routes/dosisRouter';
 dotenv.config();
 
 const app = express();
-const corsOptions = {
-  origin: ['http://localhost:3000', 'https://frontend.com'],
+
+
+app.use(cors({
+  origin: process.env.ORIGIN_URL_1 && process.env.ORIGIN_URL_2 ? 
+    [process.env.ORIGIN_URL_1, process.env.ORIGIN_URL_2].filter(Boolean) : 
+    '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-app.use(cors(corsOptions)); 
+}));
 app.use(express.json());
 
 

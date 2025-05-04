@@ -7,7 +7,7 @@ import { comparePassword } from '../services/bcrypt';
 export class InMemoryUserRepository implements IUserRepository {
     async create(user: User): Promise<User> {
         const query = `
-            INSERT INTO users (id_usuario, nombre_usuario, contraseña, rol, activo)
+            INSERT INTO users (idUsuario, nombreUsuario, contraseña, rol, activo)
             VALUES ($1, $2, $3, $4, $5)
             RETURNING *;
         `;
@@ -31,8 +31,8 @@ export class InMemoryUserRepository implements IUserRepository {
     async update(user: User): Promise<User> {
         const query = `
             UPDATE users
-            SET nombre_usuario = $1, contraseña = $2, rol = $3, activo = $4
-            WHERE id_usuario = $5
+            SET nombreUsuario = $1, contraseña = $2, rol = $3, activo = $4
+            WHERE idUsuario = $5
             RETURNING *;
         `;
         const values = [
@@ -58,7 +58,7 @@ export class InMemoryUserRepository implements IUserRepository {
     async readById(id: string): Promise<User> {
         const query = `
             SELECT * FROM users
-            WHERE id_usuario = $1;
+            WHERE idUsuario = $1;
         `;
         const values = [id];
         const result = await db.executePreparedQuery(query, values);
@@ -77,7 +77,7 @@ export class InMemoryUserRepository implements IUserRepository {
     async delete(id: string): Promise<void> {
         const query = `
             DELETE FROM users
-            WHERE id_usuario = $1;
+            WHERE idUsuario = $1;
         `;
         const values = [id];
         await db.executePreparedQuery(query, values);
@@ -102,7 +102,7 @@ export class InMemoryUserRepository implements IUserRepository {
         try {
             const query = `
                 SELECT * FROM users
-                WHERE nombre_usuario = $1;
+                WHERE nombreUsuario = $1;
             `;
             const values = [nombreUsuario];
             const result = await db.executePreparedQuery(query, values);
