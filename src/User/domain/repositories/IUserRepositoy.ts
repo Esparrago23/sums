@@ -6,5 +6,5 @@ export interface IUserRepository {
   readById(id: string): Promise<User>;
   update(user: User): Promise<User>;
   delete(id: string): Promise<void>;
-  findByCredentials(idUsuario: string, contraseña: string): Promise<User | null>;
+  findByCredentials(nombreUsuario: string, contraseña: string): Promise<User | null>;
 }

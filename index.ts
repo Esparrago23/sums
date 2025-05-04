@@ -1,5 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
+import { swaggerSpec } from './src/docs/swagger';
 
 import EntrevistadorRouter from './src/Entrevistador/infraestructure/routes/entrevistadorRouter';
 import DatosLaboralesRouter from './src/DatosLaborales/infraestructure/routes/datosLaboralesRouter';
@@ -16,7 +19,7 @@ import UnidadSaludRouter from './src/UnidadSalud/infraestructure/routes/unidadSa
 import ConvivenciaAnimalesRouter from './src/ConvivenciaAnimales/infraestructure/routes/convivenciaAnimalesRouter';
 import EducacionRouter from './src/Educacion/infraestructure/routes/educacionRouter';
 import SaludFamiliarRouter from './src/SaludFamiliar/infraestructure/routes/saludFamiliarRouter';
-import ServiciosBasicosRouter from './src/ServiciosBasicos/infraestructure/serviciosBasicos_routes';
+import ServiciosBasicosRouter from './src/ServiciosBasicos/infraestructure/routes/serviciosBasicos_routes';
 import MaterialesViviendaRouter from './src/MaterialesVivienda/infraestructure/routes/materialesContruccionRouter';
 import ServiciosSaludRouter from './src/ServiciosSalud/infraestructure/routes/serviciosSaludRouter';
 import VacunasRouter from './src/Vacunas/infraestructure/routes/vacunasRouter';
@@ -24,7 +27,17 @@ import DosisRouter from './src/Dosis/infraestructure/routes/dosisRouter';
 dotenv.config();
 
 const app = express();
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://frontend.com'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions)); 
 app.use(express.json());
+
+
+app.use('/sums/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/sums',  
     CedulaRouter,

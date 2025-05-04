@@ -1,6 +1,8 @@
 import { User } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepositoy';
 import { db } from '../../../core/db_postgresql';
+import { parseDBDate } from '../../../core/date_utils';
+
 import { comparePassword } from '../services/bcrypt';
 export class InMemoryUserRepository implements IUserRepository {
     async create(user: User): Promise<User> {
@@ -17,7 +19,13 @@ export class InMemoryUserRepository implements IUserRepository {
             user.activo
         ];
         const result = await db.executePreparedQuery(query, values);
-        return result.rows[0];
+
+        // Parsear la fecha en el resultado si existe
+        const savedUser = result.rows[0];
+        if (savedUser.fecha_registro) {
+            savedUser.fecha_registro = parseDBDate(savedUser.fecha_registro);
+        }
+        return savedUser;
     }
 
     async update(user: User): Promise<User> {
@@ -38,7 +46,13 @@ export class InMemoryUserRepository implements IUserRepository {
         if (result.rowCount === 0) {
             throw new Error('User not found');
         }
-        return result.rows[0];
+
+        // Parsear la fecha en el resultado si existe
+        const updatedUser = result.rows[0];
+        if (updatedUser.fecha_registro) {
+            updatedUser.fecha_registro = parseDBDate(updatedUser.fecha_registro);
+        }
+        return updatedUser;
     }
 
     async readById(id: string): Promise<User> {
@@ -51,7 +65,13 @@ export class InMemoryUserRepository implements IUserRepository {
         if (result.rowCount === 0) {
             throw new Error('User not found');
         }
-        return result.rows[0];
+
+        // Parsear la fecha en el resultado si existe
+        const user = result.rows[0];
+        if (user.fecha_registro) {
+            user.fecha_registro = parseDBDate(user.fecha_registro);
+        }
+        return user;
     }
 
     async delete(id: string): Promise<void> {
@@ -68,16 +88,23 @@ export class InMemoryUserRepository implements IUserRepository {
             SELECT * FROM users;
         `;
         const result = await db.executePreparedQuery(query, []);
-        return result.rows;
+
+        // Parsear las fechas en los resultados
+        return result.rows.map((row: any) => {
+            if (row.fecha_registro) {
+                row.fecha_registro = parseDBDate(row.fecha_registro);
+            }
+            return row;
+        });
     }
 
-    async findByCredentials(idUsuario: string, contraseña: string): Promise<User | null> {
+    async findByCredentials(nombreUsuario: string, contraseña: string): Promise<User | null> {
         try {
             const query = `
                 SELECT * FROM users
-                WHERE id_usuario = $1;
+                WHERE nombre_usuario = $1;
             `;
-            const values = [idUsuario];
+            const values = [nombreUsuario];
             const result = await db.executePreparedQuery(query, values);
             
             if (result.rowCount === 0) {
@@ -86,7 +113,6 @@ export class InMemoryUserRepository implements IUserRepository {
             }
         
             const user = result.rows[0];
-            // Usar bcrypt para comparar contraseñas
             const isPasswordValid = await comparePassword(contraseña, user.contraseña);
             console.log('Contraseña válida:', isPasswordValid);
             

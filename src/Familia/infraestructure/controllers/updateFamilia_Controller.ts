@@ -8,6 +8,12 @@ export class UpdateFamilia_Controller {
         try {
             const id = parseInt(req.params.id, 10);
             const familiaData = req.body;
+
+            // Convertir la fecha si viene como string
+            if (typeof familiaData.fecha_encuesta === 'string') {
+                familiaData.fecha_encuesta = new Date(familiaData.fecha_encuesta);
+            }
+
             const updatedFamilia = await this.updateFamilia.execute(id, familiaData);
             if (updatedFamilia) {
                 res.status(200).json(updatedFamilia);

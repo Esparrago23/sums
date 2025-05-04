@@ -7,6 +7,12 @@ export class CreateEntrevistador_Controller {
     async run(req: Request, res: Response) {
         try {
             const entrevistadorData = req.body;
+
+            // Convertir la fecha si viene como string
+            if (typeof entrevistadorData.fecha_registro === 'string') {
+                entrevistadorData.fecha_registro = new Date(entrevistadorData.fecha_registro);
+            }
+
             const newEntrevistador = await this.createEntrevistador.execute(entrevistadorData);
             res.status(201).json(newEntrevistador);
         } catch (error: any) {
