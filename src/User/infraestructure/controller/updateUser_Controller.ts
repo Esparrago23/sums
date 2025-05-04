@@ -1,3 +1,4 @@
+// src/User/infraestructure/controller/updateUser_Controller.ts
 import { Request, Response } from "express";
 import { UpdateUserUseCase } from "../../application/updateUser_UseCase";
 
@@ -6,7 +7,7 @@ export class UpdateUser_Controller {
 
     async run(req: Request, res: Response) {
         try {
-            const userId = req.params.id;
+            const userId = parseInt(req.params.id, 10); // Convertir a número
             const userData = req.body;
             const updatedUser = await this.updateUser.execute(userId, userData);
             if (updatedUser) {

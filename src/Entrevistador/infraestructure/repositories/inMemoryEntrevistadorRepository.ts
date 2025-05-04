@@ -1,3 +1,4 @@
+// src/Entrevistador/infraestructure/repositories/inMemoryEntrevistadorRepository.ts
 import { Entrevistador } from '../../domain/entities/entrevistador';
 import { IEntrevistadorRepository } from '../../domain/repositories/IEntrevistadorRepository';
 import { db } from '../../../core/db_postgresql';
@@ -6,15 +7,16 @@ import { formatDateForDB, parseDBDate } from '../../../core/date_utils';
 export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository {
   async create(entrevistador: Entrevistador): Promise<Entrevistador> {
     const query = `
-      INSERT INTO entrevistador (nombre, fecha_registro, unidad_salud_id, datos_laborales_id)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO entrevistador (nombre, fecha_registro, unidad_salud_id, datos_laborales_id, rol_id)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
     const values = [
       entrevistador.nombre,
       formatDateForDB(entrevistador.fecha_registro),
       entrevistador.unidad_salud_id,
-      entrevistador.datos_laborales_id
+      entrevistador.datos_laborales_id,
+      entrevistador.rol_id
     ];
     const result = await db.executePreparedQuery(query, values);
 
@@ -27,8 +29,8 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
   async update(entrevistador: Entrevistador): Promise<Entrevistador> {
     const query = `
       UPDATE entrevistador
-      SET nombre = $1, fecha_registro = $2, unidad_salud_id = $3, datos_laborales_id = $4
-      WHERE id = $5
+      SET nombre = $1, fecha_registro = $2, unidad_salud_id = $3, datos_laborales_id = $4, rol_id = $5
+      WHERE id = $6
       RETURNING *;
     `;
     const values = [
@@ -36,6 +38,7 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
       formatDateForDB(entrevistador.fecha_registro),
       entrevistador.unidad_salud_id,
       entrevistador.datos_laborales_id,
+      entrevistador.rol_id,
       entrevistador.id
     ];
     const result = await db.executePreparedQuery(query, values);
