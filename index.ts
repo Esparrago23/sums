@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import { swaggerSpec } from './src/docs/swagger';
+import { db } from './src/core/db_postgresql';
 
 import EntrevistadorRouter from './src/Entrevistador/infraestructure/routes/entrevistadorRouter';
 import DatosLaboralesRouter from './src/DatosLaborales/infraestructure/routes/datosLaboralesRouter';
@@ -63,6 +64,31 @@ app.use('/sums',
     VacunasRouter,
     ViviendaRouter,
 );
+
+// Ruta de prueba para verificar la conexión
+app.get('/sums/ping', async (req, res) => {
+  try {
+    const result = await db.executePreparedQuery('SELECT 1', []);
+    res.json({ message: 'pong', result: result.rows });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
+// Verificación inicial de la base de datos
+db.ensureDatabaseForCurrentYear()
+  .catch(err => {
+    console.error("Error al asegurar la base de datos:", err);
+    process.exit(1);
+  });
+
+// Verificación diaria de la base de datos
+setInterval(() => {
+  console.log("Ejecutando verificación diaria de base de datos...");
+  db.ensureDatabaseForCurrentYear().catch(err => {
+    console.error("Error durante la verificación diaria:", err);
+  });
+}, 24 * 60 * 60 * 1000); // cada 24 horas
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
