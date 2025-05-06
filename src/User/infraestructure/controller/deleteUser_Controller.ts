@@ -1,4 +1,5 @@
-import { Request,Response } from "express";
+// src/User/infraestructure/controller/deleteUser_Controller.ts
+import { Request, Response } from "express";
 import { DeleteUserUseCase } from "../../application/deleteUser_UseCase";
 
 export class DeleteUser_Controller {
@@ -6,11 +7,11 @@ export class DeleteUser_Controller {
 
     async run(req: Request, res: Response) {
         try {
-            const { id } = req.params;
+            const id = parseInt(req.params.id, 10); // Convertir a número
             await this.deleteUser.execute(id);
             res.status(200).json({ message: "User deleted successfully" });
-        } catch (error:any) {
-            res.status(400).json({ error: error.message }); 
+        } catch (error: any) {
+            res.status(400).json({ error: error.message });
         }
     }
 }

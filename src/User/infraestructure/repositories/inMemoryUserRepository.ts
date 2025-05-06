@@ -1,22 +1,22 @@
 import { User } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepositoy';
 import { db } from '../../../core/db_postgresql';
-import { parseDBDate } from '../../../core/date_utils';
+import { formatDateForDB, parseDBDate } from '../../../core/date_utils';
 
-import { comparePassword } from '../services/bcrypt';
 export class InMemoryUserRepository implements IUserRepository {
     async create(user: User): Promise<User> {
         const query = `
-            INSERT INTO users (idUsuario, nombreUsuario, contraseña, rol, activo)
-            VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO usuario (nombre_usuario, contrasena, rol_id, activo, unidad_salud_id, datos_laborales_id)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *;
         `;
         const values = [
-            user.idUsuario,
-            user.nombreUsuario,
-            user.contraseña,
-            user.rol,
-            user.activo
+            user.nombre_usuario,
+            user.contrasena,
+            user.rol_id,
+            user.activo,
+            user.unidad_salud_id || null,
+            user.datos_laborales_id || null
         ];
         const result = await db.executePreparedQuery(query, values);
 
@@ -30,17 +30,20 @@ export class InMemoryUserRepository implements IUserRepository {
 
     async update(user: User): Promise<User> {
         const query = `
-            UPDATE users
-            SET nombreUsuario = $1, contraseña = $2, rol = $3, activo = $4
-            WHERE idUsuario = $5
+            UPDATE usuario
+            SET nombre_usuario = $1, contrasena = $2, rol_id = $3, activo = $4, 
+                unidad_salud_id = $5, datos_laborales_id = $6
+            WHERE id = $7
             RETURNING *;
         `;
         const values = [
-            user.nombreUsuario,
-            user.contraseña,
-            user.rol,
+            user.nombre_usuario,
+            user.contrasena,
+            user.rol_id,
             user.activo,
-            user.idUsuario
+            user.unidad_salud_id || null,
+            user.datos_laborales_id || null,
+            user.id
         ];
         const result = await db.executePreparedQuery(query, values);
         if (result.rowCount === 0) {
@@ -55,10 +58,10 @@ export class InMemoryUserRepository implements IUserRepository {
         return updatedUser;
     }
 
-    async readById(id: string): Promise<User> {
+    async readById(id: number): Promise<User> {
         const query = `
-            SELECT * FROM users
-            WHERE idUsuario = $1;
+            SELECT * FROM usuario
+            WHERE id = $1;
         `;
         const values = [id];
         const result = await db.executePreparedQuery(query, values);
@@ -74,10 +77,10 @@ export class InMemoryUserRepository implements IUserRepository {
         return user;
     }
 
-    async delete(id: string): Promise<void> {
+    async delete(id: number): Promise<void> {
         const query = `
-            DELETE FROM users
-            WHERE idUsuario = $1;
+            DELETE FROM usuario
+            WHERE id = $1;
         `;
         const values = [id];
         await db.executePreparedQuery(query, values);
@@ -85,7 +88,7 @@ export class InMemoryUserRepository implements IUserRepository {
 
     async readAll(): Promise<User[]> {
         const query = `
-            SELECT * FROM users;
+            SELECT * FROM usuario;
         `;
         const result = await db.executePreparedQuery(query, []);
 
@@ -98,32 +101,29 @@ export class InMemoryUserRepository implements IUserRepository {
         });
     }
 
-    async findByCredentials(nombreUsuario: string, contraseña: string): Promise<User | null> {
-        try {
-            const query = `
-                SELECT * FROM users
-                WHERE nombreUsuario = $1;
-            `;
-            const values = [nombreUsuario];
-            const result = await db.executePreparedQuery(query, values);
-            
-            if (result.rowCount === 0) {
-                console.log('Usuario no encontrado');
-                return null;
-            }
-        
-            const user = result.rows[0];
-            const isPasswordValid = await comparePassword(contraseña, user.contraseña);
-            console.log('Contraseña válida:', isPasswordValid);
-            
-            if (!isPasswordValid) {
-                return null;
-            }
-        
-            return user;
-        } catch (error) {
-            console.error('Error en findByCredentials:', error);
+    async findByCredentials(nombre_usuario: string, contrasena: string): Promise<User | null> {
+        const query = `
+            SELECT * FROM usuario
+            WHERE nombre_usuario = $1;
+        `;
+        const values = [nombre_usuario];
+        const result = await db.executePreparedQuery(query, values);
+
+        if (result.rowCount === 0) {
             return null;
         }
+
+        const user = result.rows[0];
+        const isPasswordValid = contrasena === user.contrasena;
+
+        if (!isPasswordValid) {
+            return null;
+        }
+        
+        // Parsear la fecha en el resultado si existe
+        if (user.fecha_registro) {
+            user.fecha_registro = parseDBDate(user.fecha_registro);
+        }
+        return user;
     }
 }

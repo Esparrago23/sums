@@ -1,3 +1,4 @@
+// src/User/infraestructure/controller/readUserById_Controller.ts
 import { Request, Response } from "express";
 import { ReadUserByIDUseCase } from "../../application/readUserById_UseCase";
 
@@ -6,7 +7,7 @@ export class ReadUserById_Controller {
 
     async run(req: Request, res: Response) {
         try {
-            const userId = req.params.id;
+            const userId = parseInt(req.params.id, 10); // Convertir a número
             const user = await this.readUserById.execute(userId);
             if (user) {
                 res.status(200).json(user);
