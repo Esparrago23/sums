@@ -75,12 +75,7 @@ app.get('/sums/ping', async (req, res) => {
   }
 });
 
-// Verificación inicial de la base de datos
-db.ensureDatabaseForCurrentYear()
-  .catch(err => {
-    console.error("Error al asegurar la base de datos:", err);
-    process.exit(1);
-  });
+
 
 // Verificación diaria de la base de datos
 setInterval(() => {
