@@ -42,12 +42,14 @@ class Conn_PostgreSQL {
       console.error('Error en la conexión a la base de datos:', err);
     });
 
-    // Verificar cambio de año cada día
-    setInterval(() => this.checkAndUpdateConnection(), 24 * 60 * 60 * 1000);
+    // Verificar cambio cada 2 minutos (para pruebas)
+    setInterval(() => this.checkAndUpdateConnection(), 2 * 60 * 1000);
   }
 
   private async checkAndUpdateConnection(): Promise<void> {
-    const newYear = new Date().getFullYear();
+    // Simulamos un cambio de año para pruebas
+    const currentDate = new Date();
+    const newYear = this.currentYear + (currentDate.getSeconds() >= 30 ? 1 : 0);
     if (newYear !== this.currentYear) {
       console.log(`Cambio de año detectado: ${this.currentYear} -> ${newYear}`);
       await this.ensureDatabaseForCurrentYear();
