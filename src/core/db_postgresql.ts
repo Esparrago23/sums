@@ -23,7 +23,7 @@ function loadDBConfig(): DBConfig {
   };
 }
 
-// Controla el modo de prueba - cambiar a false en producción
+// Controla el modo de prueba - cambiar a false en producción,true en pruebas, genera multiples bd
 const IS_TEST_MODE = false;
 
 class Conn_PostgreSQL {
