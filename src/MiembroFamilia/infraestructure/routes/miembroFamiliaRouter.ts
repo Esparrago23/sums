@@ -1,3 +1,102 @@
+/**
+ * @swagger
+ * /api/miembros_familia:
+ *   post:
+ *     summary: Create a new family member record
+ *     tags: [MiembrosFamilia]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/MiembroFamilia'
+ *     responses:
+ *       201:
+ *         description: Family member record created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MiembroFamilia'
+ *       400:
+ *         description: Invalid input data
+ * 
+ *   get:
+ *     summary: Get all family member records
+ *     tags: [MiembrosFamilia]
+ *     responses:
+ *       200:
+ *         description: List of all family member records
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/MiembroFamilia'
+ * 
+ * /api/miembros_familia/{id}:
+ *   get:
+ *     summary: Get a family member record by ID
+ *     tags: [MiembrosFamilia]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family member record
+ *     responses:
+ *       200:
+ *         description: Family member record found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MiembroFamilia'
+ *       404:
+ *         description: Record not found
+ * 
+ *   put:
+ *     summary: Update a family member record
+ *     tags: [MiembrosFamilia]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family member record to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/MiembroFamilia'
+ *     responses:
+ *       200:
+ *         description: Family member record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MiembroFamilia'
+ *       404:
+ *         description: Record not found
+ * 
+ *   delete:
+ *     summary: Delete a family member record
+ *     tags: [MiembrosFamilia]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family member record to delete
+ *     responses:
+ *       200:
+ *         description: Family member record deleted successfully
+ *       404:
+ *         description: Record not found
+ */
+
 import express from 'express';
 import { createMiembroFamiliaController } from '../miembroFamilia_dependencies';
 import { readAllMiembroFamiliaController } from '../miembroFamilia_dependencies';
@@ -13,98 +112,3 @@ router.get('/miembros_familia/:id', readMiembroFamiliaByIdController.run.bind(re
 router.put('/miembros_familia/:id', updateMiembroFamiliaController.run.bind(updateMiembroFamiliaController));
 
 export default router;
-/**
- * @swagger
- * /miembros_familia:
- *   post:
- *     summary: Crear un nuevo miembro de la familia
- *     tags: [MiembrosFamilia]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/MiembroFamilia'
- *     responses:
- *       201:
- *         description: Miembro de la familia creado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/MiembroFamilia'
- *       400:
- *         description: Datos inválidos
-
- *   get:
- *     summary: Obtener todos los miembros de la familia
- *     tags: [MiembrosFamilia]
- *     responses:
- *       200:
- *         description: Lista de miembros de la familia
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/MiembroFamilia'
-
- * /miembros_familia/{id}:
- *   get:
- *     summary: Obtener miembro de la familia por ID
- *     tags: [MiembrosFamilia]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Miembro de la familia encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/MiembroFamilia'
- *       404:
- *         description: Miembro de la familia no encontrado
-
- *   put:
- *     summary: Actualizar miembro de la familia
- *     tags: [MiembrosFamilia]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/MiembroFamilia'
- *     responses:
- *       200:
- *         description: Miembro de la familia actualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/MiembroFamilia'
- *       404:
- *         description: Miembro de la familia no encontrado
-
- *   delete:
- *     summary: Eliminar miembro de la familia
- *     tags: [MiembrosFamilia]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Miembro de la familia eliminado
- *       404:
- *         description: Miembro de la familia no encontrado
- */

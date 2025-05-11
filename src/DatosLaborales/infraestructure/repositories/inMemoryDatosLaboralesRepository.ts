@@ -9,7 +9,7 @@ export class InMemoryDatosLaboralesRepository implements IDatosLaboralesReposito
       VALUES ($1, $2, $3, $4)
       RETURNING *;
     `;
-    const values = [datosLaborales.turnos, datosLaborales.horario, datosLaborales.rango_Horario, datosLaborales.cargo];
+    const values = [datosLaborales.turnos, datosLaborales.horario, datosLaborales.rango_horario, datosLaborales.cargo];
     const result = await db.executePreparedQuery(query, values);
     return result.rows[0];
   }
@@ -21,7 +21,7 @@ export class InMemoryDatosLaboralesRepository implements IDatosLaboralesReposito
       WHERE id = $5
       RETURNING *;
     `;
-    const values = [datosLaborales.turnos, datosLaborales.horario, datosLaborales.rango_Horario, datosLaborales.cargo, datosLaborales.id];
+    const values = [datosLaborales.turnos, datosLaborales.horario, datosLaborales.rango_horario, datosLaborales.cargo, datosLaborales.id];
     const result = await db.executePreparedQuery(query, values);
     if (result.rowCount === 0) {
       throw new Error('DatosLaborales not found');

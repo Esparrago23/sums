@@ -14,24 +14,24 @@ export class MaterialesVivienda {
  *     MaterialesVivienda:
  *       type: object
  *       required:
+ *         - id
  *         - vivienda_id
  *         - tipo
  *         - material
- *         - especificacion
  *       properties:
  *         id:
  *           type: integer
- *           description: ID del registro de materiales
+ *           description: Identificador único del registro de materiales
  *         vivienda_id:
  *           type: integer
- *           description: ID de la vivienda relacionada
+ *           description: Referencia a la vivienda asociada
  *         tipo:
  *           type: string
- *           description: Tipo de elemento (ej. techo, pared)
+ *           description: Tipo de elemento constructivo (piso, pared, techo, etc.)
  *         material:
  *           type: string
- *           description: Tipo de material usado
+ *           description: Material del que está hecho el elemento
  *         especificacion:
  *           type: string
- *           description: Especificación adicional del material
+ *           description: Detalles adicionales sobre el material
  */

@@ -13,21 +13,19 @@ export class Familia {
  *     Familia:
  *       type: object
  *       required:
- *         - unidad_id
- *         - entrevistador_id
- *         - fecha_encuesta
+ *         - id
  *       properties:
  *         id:
  *           type: integer
- *           description: ID de la familia
+ *           description: Identificador único de la familia
  *         unidad_id:
  *           type: integer
- *           description: ID de la unidad asociada
+ *           description: Referencia a la unidad de salud asociada
  *         entrevistador_id:
  *           type: integer
- *           description: ID del entrevistador asignado
+ *           description: Referencia al entrevistador que registró a la familia
  *         fecha_encuesta:
  *           type: string
- *           format: date-time
- *           description: Fecha de la encuesta
+ *           format: date
+ *           description: Fecha en que se realizó la encuesta
  */

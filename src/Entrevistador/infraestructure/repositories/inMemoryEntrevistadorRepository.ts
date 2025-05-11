@@ -1,25 +1,25 @@
-// src/Entrevistador/infraestructure/repositories/inMemoryEntrevistadorRepository.ts
-import { Entrevistador } from '../../domain/entities/entrevistador';
-import { IEntrevistadorRepository } from '../../domain/repositories/IEntrevistadorRepository';
+// src/rol/infraestructure/repositories/inMemoryrolRepository.ts
+import { Rol } from '../../domain/entities/entrevistador';
+import { IRolRepository } from '../../domain/repositories/IEntrevistadorRepository';
 import { db } from '../../../core/db_postgresql';
 import { formatDateForDB, parseDBDate } from '../../../core/date_utils';
 
-export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository {
-  async create(entrevistador: Entrevistador): Promise<Entrevistador> {
+export class InMemoryrolRepository implements IRolRepository {
+  async create(rol: Rol): Promise<Rol> {
     const query = `
       INSERT INTO rol (id, nombre_rol)
       VALUES ($1, $2)
       RETURNING *;
     `;
     const values = [
-      entrevistador.id,
-      entrevistador.nombre_rol
+      rol.id,
+      rol.nombre_rol
     ];
     const result = await db.executePreparedQuery(query, values);
     return result.rows[0];
   }
 
-  async update(entrevistador: Entrevistador): Promise<Entrevistador> {
+  async update(rol: Rol): Promise<Rol> {
     const query = `
       UPDATE rol
       SET nombre_rol = $1
@@ -27,8 +27,8 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
       RETURNING *;
     `;
     const values = [
-      entrevistador.nombre_rol,
-      entrevistador.id
+      rol.nombre_rol,
+      rol.id
     ];
     const result = await db.executePreparedQuery(query, values);
     if (result.rowCount === 0) {
@@ -37,7 +37,7 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
     return result.rows[0];
   }
 
-  async readById(id: number): Promise<Entrevistador | null> {
+  async readById(id: number): Promise<Rol | null> {
     const query = `
       SELECT * FROM rol
       WHERE id = $1;
@@ -59,7 +59,7 @@ export class InMemoryEntrevistadorRepository implements IEntrevistadorRepository
     await db.executePreparedQuery(query, values);
   }
 
-  async readAll(): Promise<Entrevistador[]> {
+  async readAll(): Promise<Rol[]> {
     const query = `
       SELECT * FROM rol;
     `;

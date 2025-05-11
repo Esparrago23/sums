@@ -1,3 +1,102 @@
+/**
+ * @swagger
+ * /api/materiales_vivienda:
+ *   post:
+ *     summary: Create a new housing material record
+ *     tags: [MaterialesVivienda]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/MaterialesVivienda'
+ *     responses:
+ *       201:
+ *         description: Housing material record created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MaterialesVivienda'
+ *       400:
+ *         description: Invalid input data
+ * 
+ *   get:
+ *     summary: Get all housing material records
+ *     tags: [MaterialesVivienda]
+ *     responses:
+ *       200:
+ *         description: List of all housing material records
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/MaterialesVivienda'
+ * 
+ * /api/materiales_vivienda/{id}:
+ *   get:
+ *     summary: Get a housing material record by ID
+ *     tags: [MaterialesVivienda]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the housing material record
+ *     responses:
+ *       200:
+ *         description: Housing material record found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MaterialesVivienda'
+ *       404:
+ *         description: Record not found
+ * 
+ *   put:
+ *     summary: Update a housing material record
+ *     tags: [MaterialesVivienda]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the housing material record to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/MaterialesVivienda'
+ *     responses:
+ *       200:
+ *         description: Housing material record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MaterialesVivienda'
+ *       404:
+ *         description: Record not found
+ * 
+ *   delete:
+ *     summary: Delete a housing material record
+ *     tags: [MaterialesVivienda]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the housing material record to delete
+ *     responses:
+ *       200:
+ *         description: Housing material record deleted successfully
+ *       404:
+ *         description: Record not found
+ */
+
 import express from 'express';
 import { createMaterialesViviendaController } from '../materialesVivienda_dependencies';
 import { readAllMaterialesViviendaController } from '../materialesVivienda_dependencies';
@@ -13,98 +112,3 @@ router.get('/materiales_vivienda/:id', readMaterialesViviendaByIdController.run.
 router.put('/materiales_vivienda/:id', updateMaterialesViviendaController.run.bind(updateMaterialesViviendaController));
 
 export default router;
-/**
- * @swagger
- * /materiales_vivienda:
- *   post:
- *     summary: Crear un nuevo registro de materiales de vivienda
- *     tags: [MaterialesVivienda]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/MaterialesVivienda'
- *     responses:
- *       201:
- *         description: Registro creado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/MaterialesVivienda'
- *       400:
- *         description: Datos inválidos
-
- *   get:
- *     summary: Obtener todos los registros de materiales de vivienda
- *     tags: [MaterialesVivienda]
- *     responses:
- *       200:
- *         description: Lista de registros
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/MaterialesVivienda'
-
- * /materiales_vivienda/{id}:
- *   get:
- *     summary: Obtener registro de materiales por ID
- *     tags: [MaterialesVivienda]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Registro encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/MaterialesVivienda'
- *       404:
- *         description: Registro no encontrado
-
- *   put:
- *     summary: Actualizar un registro de materiales de vivienda
- *     tags: [MaterialesVivienda]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/MaterialesVivienda'
- *     responses:
- *       200:
- *         description: Registro actualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/MaterialesVivienda'
- *       404:
- *         description: Registro no encontrado
-
- *   delete:
- *     summary: Eliminar un registro de materiales de vivienda
- *     tags: [MaterialesVivienda]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Registro eliminado
- *       404:
- *         description: Registro no encontrado
- */

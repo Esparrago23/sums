@@ -1,9 +1,9 @@
-import { Entrevistador } from "../entities/entrevistador";
+import {  Rol } from "../entities/entrevistador";
 
-export interface IEntrevistadorRepository {
-    create(entrevistador: Entrevistador): Promise<Entrevistador>;
-    readAll(): Promise<Entrevistador[]>;
-    readById(id: number): Promise<Entrevistador | null>;
-    update(entrevistador: Entrevistador): Promise<Entrevistador>;
+export interface IRolRepository {
+    create(rol: Rol): Promise<Rol>;
+    readAll(): Promise<Rol[]>;
+    readById(id: number): Promise<Rol | null>;
+    update(rol: Rol): Promise<Rol>;
     delete(id: number): Promise<void>;
 }
