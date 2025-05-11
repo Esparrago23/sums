@@ -1,22 +1,8 @@
-import express from 'express';
-import { createEducacionController } from '../educacion_dependencies';
-import { readAllEducacionController } from '../educacion_dependencies'; 
-import { deleteEducacionController } from '../educacion_dependencies';
-import { readEducacionByIdController } from '../educacion_dependencies';
-import { updateEducacionController } from '../educacion_dependencies';
-
 /**
  * @swagger
- * tags:
- *   name: Educacion
- *   description: Gestión de información educativa
- */
-
-/**
- * @swagger
- * /educaciones:
+ * /api/educaciones:
  *   post:
- *     summary: Crear un nuevo registro de educación
+ *     summary: Create a new education record
  *     tags: [Educacion]
  *     requestBody:
  *       required: true
@@ -26,30 +12,30 @@ import { updateEducacionController } from '../educacion_dependencies';
  *             $ref: '#/components/schemas/Educacion'
  *     responses:
  *       201:
- *         description: Registro de educación creado
+ *         description: Education record created successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Educacion'
+ *       400:
+ *         description: Invalid input data
+ * 
  *   get:
- *     summary: Obtener todos los registros de educación
+ *     summary: Get all education records
  *     tags: [Educacion]
  *     responses:
  *       200:
- *         description: Lista de registros de educación
+ *         description: List of all education records
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Educacion'
- */
-
-/**
- * @swagger
- * /educaciones/{id}:
+ * 
+ * /api/educaciones/{id}:
  *   get:
- *     summary: Obtener un registro de educación por ID
+ *     summary: Get an education record by ID
  *     tags: [Educacion]
  *     parameters:
  *       - in: path
@@ -57,16 +43,19 @@ import { updateEducacionController } from '../educacion_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID del registro de educación
+ *         description: ID of the education record
  *     responses:
  *       200:
- *         description: Registro de educación encontrado
+ *         description: Education record found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Educacion'
+ *       404:
+ *         description: Education record not found
+ * 
  *   put:
- *     summary: Actualizar un registro de educación
+ *     summary: Update an education record
  *     tags: [Educacion]
  *     parameters:
  *       - in: path
@@ -74,7 +63,7 @@ import { updateEducacionController } from '../educacion_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID del registro de educación
+ *         description: ID of the education record to update
  *     requestBody:
  *       required: true
  *       content:
@@ -83,9 +72,16 @@ import { updateEducacionController } from '../educacion_dependencies';
  *             $ref: '#/components/schemas/Educacion'
  *     responses:
  *       200:
- *         description: Registro de educación actualizado
+ *         description: Education record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Educacion'
+ *       404:
+ *         description: Education record not found
+ * 
  *   delete:
- *     summary: Eliminar un registro de educación
+ *     summary: Delete an education record
  *     tags: [Educacion]
  *     parameters:
  *       - in: path
@@ -93,11 +89,21 @@ import { updateEducacionController } from '../educacion_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID del registro de educación
+ *         description: ID of the education record to delete
  *     responses:
  *       200:
- *         description: Registro de educación eliminado
+ *         description: Education record deleted successfully
+ *       404:
+ *         description: Education record not found
  */
+
+import express from 'express';
+import { createEducacionController } from '../educacion_dependencies';
+import { readAllEducacionController } from '../educacion_dependencies'; 
+import { deleteEducacionController } from '../educacion_dependencies';
+import { readEducacionByIdController } from '../educacion_dependencies';
+import { updateEducacionController } from '../educacion_dependencies';
+
 
 export const router = express.Router();
 router.post('/educaciones', createEducacionController.run.bind(createEducacionController));

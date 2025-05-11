@@ -28,93 +28,104 @@ router.get('/servicios-salud/:servicioId/visitas/tipo/:tipo', obtenerVisitasPorT
 router.get('/servicios-salud/:servicioId/visitas/ultima', obtenerUltimaVisitaController.run.bind(obtenerUltimaVisitaController));
 
 export default router;
+
 /**
  * @swagger
- * tags:
- *   - name: ServicioSalud
- *     description: Operaciones relacionadas con servicios de salud
-
- * /servicios-salud:
+ * /api/servicios-basicos:
  *   post:
- *     summary: Crear un nuevo servicio de salud
- *     tags: [ServicioSalud]
+ *     summary: Create a new basic services record
+ *     tags: [ServiciosBasicos]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ServicioSalud'
+ *             $ref: '#/components/schemas/ServiciosBasicos'
  *     responses:
  *       201:
- *         description: Servicio creado exitosamente
+ *         description: Basic services record created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ServiciosBasicos'
  *       400:
- *         description: Error en los datos
-
+ *         description: Invalid input data
+ * 
  *   get:
- *     summary: Obtener todos los servicios de salud
- *     tags: [ServicioSalud]
+ *     summary: Get all basic services records
+ *     tags: [ServiciosBasicos]
  *     responses:
  *       200:
- *         description: Lista de servicios
+ *         description: List of all basic services records
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/ServicioSalud'
-
- * /servicios-salud/{id}:
+ *                 $ref: '#/components/schemas/ServiciosBasicos'
+ * 
+ * /api/servicios-basicos/{id}:
  *   get:
- *     summary: Obtener un servicio de salud por ID
- *     tags: [ServicioSalud]
+ *     summary: Get a basic services record by ID
+ *     tags: [ServiciosBasicos]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
+ *         description: ID of the basic services record
  *     responses:
  *       200:
- *         description: Servicio encontrado
+ *         description: Basic services record found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ServiciosBasicos'
  *       404:
- *         description: No encontrado
-
+ *         description: Record not found
+ * 
  *   put:
- *     summary: Actualizar un servicio de salud
- *     tags: [ServicioSalud]
+ *     summary: Update a basic services record
+ *     tags: [ServiciosBasicos]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
+ *         description: ID of the basic services record to update
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ServicioSalud'
+ *             $ref: '#/components/schemas/ServiciosBasicos'
  *     responses:
  *       200:
- *         description: Servicio actualizado
+ *         description: Basic services record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ServiciosBasicos'
  *       404:
- *         description: No encontrado
-
+ *         description: Record not found
+ * 
  *   delete:
- *     summary: Eliminar un servicio de salud
- *     tags: [ServicioSalud]
+ *     summary: Delete a basic services record
+ *     tags: [ServiciosBasicos]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
+ *         description: ID of the basic services record to delete
  *     responses:
  *       200:
- *         description: Eliminado correctamente
+ *         description: Basic services record deleted successfully
  *       404:
- *         description: No encontrado
-
+ *         description: Record not found
  * /servicios-salud/{servicioId}/visitas:
  *   post:
  *     summary: Agregar una visita a un servicio de salud

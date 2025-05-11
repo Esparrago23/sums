@@ -1,4 +1,4 @@
-import { InMemoryEntrevistadorRepository } from './repositories/inMemoryEntrevistadorRepository';
+import { InMemoryrolRepository } from './repositories/inMemoryEntrevistadorRepository';
 
 import { CreateEntrevistadorUseCase } from '../application/createEntrevistador_UseCase';
 import { ReadAllEntrevistadorUseCase } from '../application/readAllEntrevistador_UseCase';
@@ -12,7 +12,7 @@ import { DeleteEntrevistador_Controller } from './controllers/deleteEntrevistado
 import { ReadEntrevistadorById_Controller } from './controllers/readEntrevistadorById_Controller';
 import { UpdateEntrevistador_Controller } from './controllers/updateEntrevistador_Controller';
 
-export const entrevistadorRepository = new InMemoryEntrevistadorRepository();
+export const entrevistadorRepository = new InMemoryrolRepository();
 
 export const createEntrevistadorUseCase = new CreateEntrevistadorUseCase(entrevistadorRepository);
 export const readAllEntrevistadorUseCase = new ReadAllEntrevistadorUseCase(entrevistadorRepository);

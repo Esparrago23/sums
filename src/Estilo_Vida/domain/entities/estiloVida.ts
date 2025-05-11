@@ -4,6 +4,10 @@
  *   schemas:
  *     Alimentacion:
  *       type: object
+ *       required:
+ *         - carne_pescado_pollo
+ *         - frutas_verduras
+ *         - cereales_granos_leguminosas
  *       properties:
  *         carne_pescado_pollo:
  *           type: number
@@ -35,17 +39,21 @@ export class Alimentacion {
  *   schemas:
  *     Toxicomanias:
  *       type: object
+ *       required:
+ *         - alcoholismo
+ *         - tabaquismo
  *       properties:
  *         alcoholismo:
  *           type: boolean
- *           description: Indica si la persona tiene problemas con el alcohol
+ *           description: Indica si existe consumo problemático de alcohol
  *         tabaquismo:
  *           type: boolean
- *           description: Indica si la persona tiene problemas con el tabaco
+ *           description: Indica si existe consumo de tabaco
  *         otras_sustancias:
  *           type: string
  *           description: Descripción de otras sustancias consumidas
  */
+
 export class Toxicomanias {
     constructor(
         public alcoholismo: boolean,
@@ -60,22 +68,27 @@ export class Toxicomanias {
  *   schemas:
  *     EnfermedadesCronicas:
  *       type: object
+ *       required:
+ *         - obesidad
+ *         - hipertension
+ *         - diabetes_mellitus_tipo_2
+ *         - tosedor_cronico
  *       properties:
  *         obesidad:
  *           type: boolean
- *           description: Indica si la persona tiene obesidad
+ *           description: Indica si la persona padece obesidad
  *         hipertension:
  *           type: boolean
- *           description: Indica si la persona tiene hipertensión
+ *           description: Indica si la persona padece hipertensión arterial
  *         diabetes_mellitus_tipo_2:
  *           type: boolean
- *           description: Indica si la persona tiene diabetes tipo 2
+ *           description: Indica si la persona padece diabetes mellitus tipo 2
  *         tosedor_cronico:
  *           type: boolean
  *           description: Indica si la persona es tosedor crónico
  *         otras_enfermedades:
  *           type: string
- *           description: Descripción de otras enfermedades crónicas
+ *           description: Descripción de otras enfermedades crónicas padecidas
  */
 export class EnfermedadesCronicas {
     constructor(
@@ -93,28 +106,36 @@ export class EnfermedadesCronicas {
  *   schemas:
  *     EstiloVida:
  *       type: object
+ *       required:
+ *         - id
+ *         - persona_id
+ *         - toxicomanias
+ *         - enfermedades_cronicas
+ *         - actividad_fisica
+ *         - alimentacion
+ *         - higiene_personal
  *       properties:
  *         id:
- *           type: number
- *           description: Identificador único del estilo de vida
+ *           type: integer
+ *           description: Identificador único del registro de estilo de vida
  *         persona_id:
- *           type: number
- *           description: Identificador de la persona asociada
+ *           type: integer
+ *           description: Referencia a la persona asociada
  *         toxicomanias:
- *          
- *           description: Información sobre toxicomanías
+ *           $ref: '#/components/schemas/Toxicomanias'
+ *           description: Información sobre consumo de sustancias
  *         enfermedades_cronicas:
- *           
+ *           $ref: '#/components/schemas/EnfermedadesCronicas'
  *           description: Información sobre enfermedades crónicas
  *         actividad_fisica:
  *           type: boolean
- *           description: Indica si la persona realiza actividad física
+ *           description: Indica si la persona realiza actividad física regularmente
  *         alimentacion:
- *           
+ *           $ref: '#/components/schemas/Alimentacion'
  *           description: Información sobre hábitos alimenticios
  *         higiene_personal:
  *           type: boolean
- *           description: Indica si la persona mantiene buena higiene personal
+ *           description: Indica si la persona mantiene adecuada higiene personal
  */
 export class EstiloVida {
     constructor(

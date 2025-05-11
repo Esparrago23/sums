@@ -18,11 +18,12 @@ export class Dosis {
  *       properties:
  *         id:
  *           type: integer
- *           description: ID único de la dosis
+ *           description: Identificador único de la dosis
  *         vacuna_id:
  *           type: integer
- *           description: ID de la vacuna asociada
+ *           description: Referencia a la vacuna aplicada
  *         nombre:
  *           type: string
- *           description: Nombre de la dosis
+ *           enum: [Unica, 1era, 2da, Refuerzo]
+ *           description: Nombre o tipo de dosis aplicada (Unica, 1era, 2da, Refuerzo)
  */

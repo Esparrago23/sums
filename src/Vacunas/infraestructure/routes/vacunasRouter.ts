@@ -1,3 +1,102 @@
+/**
+ * @swagger
+ * /api/vacunas:
+ *   post:
+ *     summary: Create a new vaccine
+ *     tags: [Vacunas]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Vacunas'
+ *     responses:
+ *       201:
+ *         description: Vaccine created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Vacunas'
+ *       400:
+ *         description: Invalid input data
+ * 
+ *   get:
+ *     summary: Get all vaccines
+ *     tags: [Vacunas]
+ *     responses:
+ *       200:
+ *         description: List of all vaccines
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Vacunas'
+ * 
+ * /api/vacunas/{id}:
+ *   get:
+ *     summary: Get a vaccine by ID
+ *     tags: [Vacunas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the vaccine
+ *     responses:
+ *       200:
+ *         description: Vaccine found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Vacunas'
+ *       404:
+ *         description: Vaccine not found
+ * 
+ *   put:
+ *     summary: Update a vaccine
+ *     tags: [Vacunas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the vaccine to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Vacunas'
+ *     responses:
+ *       200:
+ *         description: Vaccine updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Vacunas'
+ *       404:
+ *         description: Vaccine not found
+ * 
+ *   delete:
+ *     summary: Delete a vaccine
+ *     tags: [Vacunas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the vaccine to delete
+ *     responses:
+ *       200:
+ *         description: Vaccine deleted successfully
+ *       404:
+ *         description: Vaccine not found
+ */
+
 import express from 'express';
 import { createVacunasController } from '../vacunas_dependencies';
 import { readAllVacunasController } from '../vacunas_dependencies';
@@ -14,98 +113,3 @@ router.get('/vacunas/:id', readVacunasByIdController.run.bind(readVacunasByIdCon
 router.put('/vacunas/:id', updateVacunasController.run.bind(updateVacunasController));
 
 export default router;
-/**
- * @swagger
- * /vacunas:
- *   post:
- *     summary: Crear una nueva vacuna
- *     tags: [Vacunas]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Vacunas'
- *     responses:
- *       201:
- *         description: Vacuna creada exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Vacunas'
- *       400:
- *         description: Datos inválidos
-
- *   get:
- *     summary: Obtener todas las vacunas
- *     tags: [Vacunas]
- *     responses:
- *       200:
- *         description: Lista de vacunas
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Vacunas'
-
- * /vacunas/{id}:
- *   get:
- *     summary: Obtener vacuna por ID
- *     tags: [Vacunas]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Vacuna encontrada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Vacunas'
- *       404:
- *         description: No encontrado
-
- *   put:
- *     summary: Actualizar una vacuna existente
- *     tags: [Vacunas]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Vacunas'
- *     responses:
- *       200:
- *         description: Vacuna actualizada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Vacunas'
- *       404:
- *         description: No encontrado
-
- *   delete:
- *     summary: Eliminar una vacuna
- *     tags: [Vacunas]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Eliminada correctamente
- *       404:
- *         description: No encontrado
- */

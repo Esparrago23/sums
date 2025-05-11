@@ -8,7 +8,7 @@
  *         - id
  *         - turnos
  *         - horario
- *         - rango_Horario
+ *         - rango_horario
  *         - cargo
  *       properties:
  *         id:
@@ -16,23 +16,23 @@
  *           description: Identificador único de los datos laborales
  *         turnos:
  *           type: string
- *           description: Turnos de trabajo
+ *           description: Turnos de trabajo (matutino, vespertino, nocturno, etc.)
  *         horario:
  *           type: string
- *           description: Horario de trabajo
- *         rango_Horario:
+ *           description: Horario específico de trabajo
+ *         rango_horario:
  *           type: string
- *           description: Rango horario de trabajo
+ *           description: Rango de horas de la jornada laboral
  *         cargo:
  *           type: string
- *           description: Cargo o puesto de trabajo
+ *           description: Cargo o puesto de trabajo que desempeña
  */
 export class DatosLaborales {
     constructor(
         public id: number,
         public turnos: string,
         public horario: string,
-        public rango_Horario: string,
+        public rango_horario: string,
         public cargo: string
     ) {}
 }

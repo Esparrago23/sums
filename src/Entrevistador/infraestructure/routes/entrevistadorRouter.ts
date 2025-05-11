@@ -1,3 +1,102 @@
+/**
+ * @swagger
+ * /api/entrevistadores:
+ *   post:
+ *     summary: Create a new interviewer
+ *     tags: [Entrevistadores]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Entrevistador'
+ *     responses:
+ *       201:
+ *         description: Interviewer created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Entrevistador'
+ *       400:
+ *         description: Invalid input data
+ * 
+ *   get:
+ *     summary: Get all interviewers
+ *     tags: [Entrevistadores]
+ *     responses:
+ *       200:
+ *         description: List of all interviewers
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Entrevistador'
+ * 
+ * /api/entrevistadores/{id}:
+ *   get:
+ *     summary: Get an interviewer by ID
+ *     tags: [Entrevistadores]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the interviewer
+ *     responses:
+ *       200:
+ *         description: Interviewer found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Entrevistador'
+ *       404:
+ *         description: Interviewer not found
+ * 
+ *   put:
+ *     summary: Update an interviewer
+ *     tags: [Entrevistadores]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the interviewer to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Entrevistador'
+ *     responses:
+ *       200:
+ *         description: Interviewer updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Entrevistador'
+ *       404:
+ *         description: Interviewer not found
+ * 
+ *   delete:
+ *     summary: Delete an interviewer
+ *     tags: [Entrevistadores]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the interviewer to delete
+ *     responses:
+ *       200:
+ *         description: Interviewer deleted successfully
+ *       404:
+ *         description: Interviewer not found
+ */
+
 import express from 'express';
 import { createEntrevistadorController } from '../entrevistador_dependencies';
 import { readAllEntrevistadorController } from '../entrevistador_dependencies';
@@ -13,99 +112,3 @@ router.get('/entrevistadores/:id', readEntrevistadorByIdController.run.bind(read
 router.put('/entrevistadores/:id', updateEntrevistadorController.run.bind(updateEntrevistadorController));
 
 export default router;
-
-/**
- * @swagger
- * /entrevistadores:
- *   post:
- *     summary: Crear un nuevo entrevistador
- *     tags: [Entrevistadores]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Entrevistador'
- *     responses:
- *       201:
- *         description: Entrevistador creado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Entrevistador'
- *       400:
- *         description: Datos inválidos
-
- *   get:
- *     summary: Obtener todos los entrevistadores
- *     tags: [Entrevistadores]
- *     responses:
- *       200:
- *         description: Lista de entrevistadores
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Entrevistador'
-
- * /entrevistadores/{id}:
- *   get:
- *     summary: Obtener entrevistador por ID
- *     tags: [Entrevistadores]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Entrevistador encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Entrevistador'
- *       404:
- *         description: Entrevistador no encontrado
-
- *   put:
- *     summary: Actualizar un entrevistador
- *     tags: [Entrevistadores]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Entrevistador'
- *     responses:
- *       200:
- *         description: Entrevistador actualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Entrevistador'
- *       404:
- *         description: Entrevistador no encontrado
-
- *   delete:
- *     summary: Eliminar un entrevistador
- *     tags: [Entrevistadores]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Entrevistador eliminado
- *       404:
- *         description: Entrevistador no encontrado
- */

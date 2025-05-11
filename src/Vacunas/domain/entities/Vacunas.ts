@@ -11,11 +11,12 @@ export class Vacunas {
  *     Vacunas:
  *       type: object
  *       required:
+ *         - id
  *         - nombre
  *       properties:
  *         id:
  *           type: integer
- *           description: ID de la vacuna
+ *           description: Identificador único de la vacuna
  *         nombre:
  *           type: string
  *           description: Nombre de la vacuna

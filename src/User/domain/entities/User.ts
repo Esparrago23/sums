@@ -15,41 +15,39 @@ export class User {
  * @swagger
  * components:
  *   schemas:
- *     User:
+ *     Usuario:
  *       type: object
  *       required:
- *         - nombreUsuario
- *         - contraseña
+ *         - id
+ *         - nombre_usuario
+ *         - contrasena
+ *         - rol_id
  *       properties:
- *         idUsuario:
+ *         id:
+ *           type: integer
+ *           description: Identificador único del usuario
+ *         nombre_usuario:
  *           type: string
- *           description: ID del usuario
- *         nombreUsuario:
+ *           description: Nombre de usuario para acceso al sistema
+ *         contrasena:
  *           type: string
- *           description: Nombre de usuario
- *         contraseña:
+ *           format: password
+ *           description: Contraseña de acceso (almacenada de forma segura)
+ *         rol_id:
+ *           type: integer
+ *           description: Referencia al rol asignado al usuario
+ *         fecha_registro:
  *           type: string
- *           description: Contraseña del usuario
- *         rol:
- *           type: string
- *           description: Rol del usuario
- *         fechaRegistro:
- *           type: string
- *           format: date-time
+ *           format: date
  *           description: Fecha de registro del usuario
  *         activo:
  *           type: boolean
- *           description: Estado del usuario
- *     UserInput:
- *       type: object
- *       required:
- *         - nombreUsuario
- *         - contraseña
- *       properties:
- *         nombreUsuario:
- *           type: string
- *           description: Nombre de usuario
- *         contraseña:
- *           type: string
- *           description: Contraseña del usuario
+ *           default: true
+ *           description: Indica si el usuario está activo en el sistema
+ *         unidad_salud_id:
+ *           type: integer
+ *           description: Referencia a la unidad de salud a la que pertenece
+ *         datos_laborales_id:
+ *           type: integer
+ *           description: Referencia a los datos laborales del usuario
  */

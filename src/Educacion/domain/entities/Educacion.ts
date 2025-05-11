@@ -7,21 +7,19 @@
  *       required:
  *         - id
  *         - persona_id
- *         - escolaridad
- *         - ocupacion
  *       properties:
  *         id:
  *           type: integer
- *           description: ID único de la educación
+ *           description: Identificador único del registro de educación
  *         persona_id:
  *           type: integer
- *           description: ID de la persona asociada
+ *           description: Referencia a la persona asociada
  *         escolaridad:
  *           type: string
- *           description: Nivel de escolaridad de la persona
+ *           description: Nivel de escolaridad alcanzado
  *         ocupacion:
  *           type: string
- *           description: Ocupación actual de la persona
+ *           description: Ocupación actual o profesión
  */
 export class Educacion {
   constructor(

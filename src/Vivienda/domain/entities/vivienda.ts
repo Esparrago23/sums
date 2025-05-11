@@ -16,32 +16,28 @@ export class Vivienda {
  *     Vivienda:
  *       type: object
  *       required:
+ *         - id
  *         - familia_id
- *         - direccion_id
- *         - servicios_basicos_id
- *         - cocina_con_leña
- *         - numero_cuartos
- *         - numero_habitantes
  *       properties:
  *         id:
  *           type: integer
- *           description: ID de la vivienda
+ *           description: Identificador único de la vivienda
  *         familia_id:
  *           type: integer
- *           description: ID de la familia
+ *           description: Referencia a la familia que habita la vivienda
  *         direccion_id:
  *           type: integer
- *           description: ID de la dirección
+ *           description: Referencia a la dirección de la vivienda
  *         servicios_basicos_id:
  *           type: integer
- *           description: ID de los servicios básicos asociados
+ *           description: Referencia a los servicios básicos de la vivienda
  *         cocina_con_leña:
  *           type: boolean
- *           description: Si se cocina con leña
+ *           description: Indica si se cocina con leña en la vivienda
  *         numero_cuartos:
  *           type: integer
- *           description: Número de cuartos
+ *           description: Número de cuartos que tiene la vivienda
  *         numero_habitantes:
  *           type: integer
- *           description: Número de habitantes
+ *           description: Número de personas que habitan la vivienda
  */

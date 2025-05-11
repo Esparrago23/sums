@@ -28,39 +28,46 @@ export class ServicioSalud {
  *         fecha:
  *           type: string
  *           format: date
- *           description: Fecha de la visita
+ *           description: Fecha en que se realizó la visita
  *         profesional:
  *           type: string
- *           description: Nombre del profesional que realizó la visita
+ *           description: Nombre o tipo de profesional que realizó la visita
  *         tipo:
  *           type: string
- *           description: Tipo de visita
+ *           description: Tipo de visita realizada (consulta, seguimiento, etc.)
  *         observaciones:
  *           type: string
- *           description: Observaciones realizadas en la visita
+ *           description: Observaciones adicionales sobre la visita
  *         actividades:
  *           type: array
  *           items:
  *             type: string
- *           description: Lista de actividades realizadas
+ *           description: Lista de actividades realizadas durante la visita
+ */
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
  *     ServicioSalud:
  *       type: object
  *       required:
+ *         - id
  *         - persona_id
  *         - visitas
- *         - frecuencia
  *       properties:
  *         id:
  *           type: integer
+ *           description: Identificador único del servicio de salud
  *         persona_id:
  *           type: integer
- *           description: ID de la persona relacionada
- *         frecuencia:
- *           type: string
- *           description: Frecuencia con la que se usa el servicio
+ *           description: Referencia a la persona que recibe el servicio
  *         visitas:
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/Visita'
+ *           description: Lista de visitas médicas registradas
+ *         frecuencia:
+ *           type: string
+ *           description: Frecuencia con la que se realizan las visitas médicas
  */

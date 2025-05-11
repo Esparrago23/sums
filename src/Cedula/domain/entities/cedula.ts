@@ -4,7 +4,6 @@
  *   schemas:
  *     Cedula:
  *       type: object
- *       description: Entidad que representa una cédula en el sistema
  *       required:
  *         - id
  *         - unidad_salud_id
@@ -18,19 +17,19 @@
  *           description: Identificador único de la cédula
  *         unidad_salud_id:
  *           type: integer
- *           description: Identificador de la unidad de salud asociada
+ *           description: Referencia a la unidad de salud asociada
  *         entrevistador_id:
  *           type: integer
- *           description: Identificador del entrevistador asignado
+ *           description: Referencia al entrevistador que realizó la cedula
  *         familia_id:
  *           type: integer
- *           description: Identificador de la familia relacionada
+ *           description: Referencia a la familia evaluada
  *         esquema_vacunacion_id:
  *           type: integer
- *           description: Identificador del esquema de vacunación
+ *           description: Referencia al esquema de vacunación aplicado
  *         composicion_familiar_id:
  *           type: integer
- *           description: Identificador de la composición familiar
+ *           description: Referencia a la composición familiar registrada
  */
 export class Cedula {
     constructor(

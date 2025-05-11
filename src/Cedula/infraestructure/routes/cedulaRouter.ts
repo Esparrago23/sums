@@ -1,49 +1,8 @@
-import express from 'express';
-import { createCedulaController } from '../cedula_dependencies';
-import { readAllCedulaController } from '../cedula_dependencies';
-import { deleteCedulaController } from '../cedula_dependencies';
-import { readCedulaByIdController } from '../cedula_dependencies';
-import { updateCedulaController } from '../cedula_dependencies';
-
 /**
  * @swagger
- * components:
- *   schemas:
- *     Cedula:
- *       type: object
- *       required:
- *         - id
- *         - unidad_salud_id
- *         - entrevistador_id
- *         - familia_id
- *         - esquema_vacunacion_id
- *         - composicion_familiar_id
- *       properties:
- *         id:
- *           type: integer
- *           description: ID único de la cédula
- *         unidad_salud_id:
- *           type: integer
- *           description: ID de la unidad de salud asociada
- *         entrevistador_id:
- *           type: integer
- *           description: ID del entrevistador asignado
- *         familia_id:
- *           type: integer
- *           description: ID de la familia relacionada
- *         esquema_vacunacion_id:
- *           type: integer
- *           description: ID del esquema de vacunación
- *         composicion_familiar_id:
- *           type: integer
- *           description: ID de la composición familiar
- */
-
-/**
- * @swagger
- * /cedulas:
+ * /api/cedulas:
  *   post:
- *     summary: Crear una nueva cédula
+ *     summary: Create a new cedula
  *     tags: [Cedulas]
  *     requestBody:
  *       required: true
@@ -53,30 +12,30 @@ import { updateCedulaController } from '../cedula_dependencies';
  *             $ref: '#/components/schemas/Cedula'
  *     responses:
  *       201:
- *         description: Cédula creada exitosamente
+ *         description: Cedula created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Cedula'
  *       400:
- *         description: Datos inválidos
- *       500:
- *         description: Error del servidor
+ *         description: Invalid input data
+ * 
  *   get:
- *     summary: Obtener todas las cédulas
+ *     summary: Get all cedulas
  *     tags: [Cedulas]
  *     responses:
  *       200:
- *         description: Lista de cédulas
+ *         description: List of all cedulas
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Cedula'
- */
-
-/**
- * @swagger
- * /cedulas/{id}:
+ * 
+ * /api/cedulas/{id}:
  *   get:
- *     summary: Obtener una cédula por ID
+ *     summary: Get a cedula by ID
  *     tags: [Cedulas]
  *     parameters:
  *       - in: path
@@ -84,18 +43,19 @@ import { updateCedulaController } from '../cedula_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la cédula
+ *         description: ID of the cedula
  *     responses:
  *       200:
- *         description: Cédula encontrada
+ *         description: Cedula found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Cedula'
  *       404:
- *         description: Cédula no encontrada
+ *         description: Cedula not found
+ * 
  *   put:
- *     summary: Actualizar una cédula
+ *     summary: Update a cedula
  *     tags: [Cedulas]
  *     parameters:
  *       - in: path
@@ -103,7 +63,7 @@ import { updateCedulaController } from '../cedula_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la cédula
+ *         description: ID of the cedula to update
  *     requestBody:
  *       required: true
  *       content:
@@ -112,11 +72,16 @@ import { updateCedulaController } from '../cedula_dependencies';
  *             $ref: '#/components/schemas/Cedula'
  *     responses:
  *       200:
- *         description: Cédula actualizada
+ *         description: Cedula updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Cedula'
  *       404:
- *         description: Cédula no encontrada
+ *         description: Cedula not found
+ * 
  *   delete:
- *     summary: Eliminar una cédula
+ *     summary: Delete a cedula
  *     tags: [Cedulas]
  *     parameters:
  *       - in: path
@@ -124,13 +89,20 @@ import { updateCedulaController } from '../cedula_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la cédula
+ *         description: ID of the cedula to delete
  *     responses:
  *       200:
- *         description: Cédula eliminada
+ *         description: Cedula deleted successfully
  *       404:
- *         description: Cédula no encontrada
+ *         description: Cedula not found
  */
+
+import express from 'express';
+import { createCedulaController } from '../cedula_dependencies';
+import { readAllCedulaController } from '../cedula_dependencies';
+import { deleteCedulaController } from '../cedula_dependencies';
+import { readCedulaByIdController } from '../cedula_dependencies';
+import { updateCedulaController } from '../cedula_dependencies';
 
 export const router = express.Router();
 router.post('/cedulas', createCedulaController.run.bind(createCedulaController));

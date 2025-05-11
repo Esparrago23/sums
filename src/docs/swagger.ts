@@ -1,6 +1,6 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 
-const options: swaggerJSDoc.Options = {
+const swaggerOptions: swaggerJSDoc.Options = {
     definition: {
         openapi: '3.0.0',
         info: {
@@ -10,10 +10,10 @@ const options: swaggerJSDoc.Options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000/sums',
-                description: 'Servidor de desarrollo',
+              url: `http://localhost:${process.env.PORT || 3000}`,
+              description: 'Development server',
             },
-        ],
+          ],
         components: {
             securitySchemes: {
                 bearerAuth: {
@@ -30,4 +30,6 @@ const options: swaggerJSDoc.Options = {
     apis: ['./src/**/*.ts'], // Rutas a los archivos que contienen la documentación
 };
 
-export const swaggerSpec = swaggerJSDoc(options);
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+export default swaggerSpec;
