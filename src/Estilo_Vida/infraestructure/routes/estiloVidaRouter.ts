@@ -1,22 +1,8 @@
-import express from 'express';
-import { createEstiloVidaController } from '../estiloVida_dependencies';
-import { readAllEstiloVidaController } from '../estiloVida_dependencies';
-import { deleteEstiloVidaController } from '../estiloVida_dependencies';
-import { readEstiloVidaByIdController } from '../estiloVida_dependencies';
-import { updateEstiloVidaController } from '../estiloVida_dependencies';
-
 /**
  * @swagger
- * tags:
- *   name: EstiloVida
- *   description: Gestión de información sobre estilos de vida
- */
-
-/**
- * @swagger
- * /estilos-vida:
+ * /api/estilos-vida:
  *   post:
- *     summary: Crear un nuevo registro de estilo de vida
+ *     summary: Create a new lifestyle record
  *     tags: [EstiloVida]
  *     requestBody:
  *       required: true
@@ -26,30 +12,30 @@ import { updateEstiloVidaController } from '../estiloVida_dependencies';
  *             $ref: '#/components/schemas/EstiloVida'
  *     responses:
  *       201:
- *         description: Registro de estilo de vida creado
+ *         description: Lifestyle record created successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/EstiloVida'
+ *       400:
+ *         description: Invalid input data
+ * 
  *   get:
- *     summary: Obtener todos los registros de estilos de vida
+ *     summary: Get all lifestyle records
  *     tags: [EstiloVida]
  *     responses:
  *       200:
- *         description: Lista de registros de estilos de vida
+ *         description: List of all lifestyle records
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/EstiloVida'
- */
-
-/**
- * @swagger
- * /estilos-vida/{id}:
+ * 
+ * /api/estilos-vida/{id}:
  *   get:
- *     summary: Obtener un registro de estilo de vida por ID
+ *     summary: Get a lifestyle record by ID
  *     tags: [EstiloVida]
  *     parameters:
  *       - in: path
@@ -57,16 +43,19 @@ import { updateEstiloVidaController } from '../estiloVida_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID del registro de estilo de vida
+ *         description: ID of the lifestyle record
  *     responses:
  *       200:
- *         description: Registro de estilo de vida encontrado
+ *         description: Lifestyle record found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/EstiloVida'
+ *       404:
+ *         description: Lifestyle record not found
+ * 
  *   put:
- *     summary: Actualizar un registro de estilo de vida
+ *     summary: Update a lifestyle record
  *     tags: [EstiloVida]
  *     parameters:
  *       - in: path
@@ -74,7 +63,7 @@ import { updateEstiloVidaController } from '../estiloVida_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID del registro de estilo de vida
+ *         description: ID of the lifestyle record to update
  *     requestBody:
  *       required: true
  *       content:
@@ -83,9 +72,16 @@ import { updateEstiloVidaController } from '../estiloVida_dependencies';
  *             $ref: '#/components/schemas/EstiloVida'
  *     responses:
  *       200:
- *         description: Registro de estilo de vida actualizado
+ *         description: Lifestyle record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EstiloVida'
+ *       404:
+ *         description: Lifestyle record not found
+ * 
  *   delete:
- *     summary: Eliminar un registro de estilo de vida
+ *     summary: Delete a lifestyle record
  *     tags: [EstiloVida]
  *     parameters:
  *       - in: path
@@ -93,11 +89,22 @@ import { updateEstiloVidaController } from '../estiloVida_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID del registro de estilo de vida
+ *         description: ID of the lifestyle record to delete
  *     responses:
  *       200:
- *         description: Registro de estilo de vida eliminado
+ *         description: Lifestyle record deleted successfully
+ *       404:
+ *         description: Lifestyle record not found
  */
+
+import express from 'express';
+import { createEstiloVidaController } from '../estiloVida_dependencies';
+import { readAllEstiloVidaController } from '../estiloVida_dependencies';
+import { deleteEstiloVidaController } from '../estiloVida_dependencies';
+import { readEstiloVidaByIdController } from '../estiloVida_dependencies';
+import { updateEstiloVidaController } from '../estiloVida_dependencies';
+
+
 
 export const router = express.Router();
 router.post('/estilos-vida', createEstiloVidaController.run.bind(createEstiloVidaController));

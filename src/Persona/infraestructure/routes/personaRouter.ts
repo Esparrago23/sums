@@ -1,3 +1,102 @@
+/**
+ * @swagger
+ * /api/personas:
+ *   post:
+ *     summary: Create a new person record
+ *     tags: [Personas]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Persona'
+ *     responses:
+ *       201:
+ *         description: Person record created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Persona'
+ *       400:
+ *         description: Invalid input data
+ * 
+ *   get:
+ *     summary: Get all person records
+ *     tags: [Personas]
+ *     responses:
+ *       200:
+ *         description: List of all person records
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Persona'
+ * 
+ * /api/personas/{id}:
+ *   get:
+ *     summary: Get a person record by ID
+ *     tags: [Personas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the person record
+ *     responses:
+ *       200:
+ *         description: Person record found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Persona'
+ *       404:
+ *         description: Person record not found
+ * 
+ *   put:
+ *     summary: Update a person record
+ *     tags: [Personas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the person record to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Persona'
+ *     responses:
+ *       200:
+ *         description: Person record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Persona'
+ *       404:
+ *         description: Person record not found
+ * 
+ *   delete:
+ *     summary: Delete a person record
+ *     tags: [Personas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the person record to delete
+ *     responses:
+ *       200:
+ *         description: Person record deleted successfully
+ *       404:
+ *         description: Person record not found
+ */
+
 import express from 'express';
 import { createPersonaController } from '../persona_dependencies';
 import { readAllPersonaController } from '../persona_dependencies';
@@ -13,98 +112,3 @@ router.get('/personas/:id', readPersonaByIdController.run.bind(readPersonaByIdCo
 router.put('/personas/:id', updatePersonaController.run.bind(updatePersonaController));
 
 export default router;
-/**
- * @swagger
- * /personas:
- *   post:
- *     summary: Crear una nueva persona
- *     tags: [Personas]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Persona'
- *     responses:
- *       201:
- *         description: Persona creada exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Persona'
- *       400:
- *         description: Datos inválidos
-
- *   get:
- *     summary: Obtener todos los registros de personas
- *     tags: [Personas]
- *     responses:
- *       200:
- *         description: Lista de personas
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Persona'
-
- * /personas/{id}:
- *   get:
- *     summary: Obtener persona por ID
- *     tags: [Personas]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Persona encontrada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Persona'
- *       404:
- *         description: Persona no encontrada
-
- *   put:
- *     summary: Actualizar persona
- *     tags: [Personas]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Persona'
- *     responses:
- *       200:
- *         description: Persona actualizada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Persona'
- *       404:
- *         description: Persona no encontrada
-
- *   delete:
- *     summary: Eliminar persona
- *     tags: [Personas]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Persona eliminada
- *       404:
- *         description: Persona no encontrada
- */

@@ -13,20 +13,19 @@ export class MiembroFamilia {
  *     MiembroFamilia:
  *       type: object
  *       required:
+ *         - id
  *         - datos_personales_id
- *         - salud_id
- *         - educacion_id
  *       properties:
  *         id:
  *           type: integer
- *           description: ID del miembro de la familia
+ *           description: Identificador único del miembro familiar
  *         datos_personales_id:
  *           type: integer
- *           description: ID de los datos personales del miembro
+ *           description: Referencia a los datos personales del miembro
  *         salud_id:
  *           type: integer
- *           description: ID de la información de salud del miembro
+ *           description: Referencia a los datos de salud del miembro
  *         educacion_id:
  *           type: integer
- *           description: ID de la información educativa del miembro
+ *           description: Referencia a los datos educativos del miembro
  */

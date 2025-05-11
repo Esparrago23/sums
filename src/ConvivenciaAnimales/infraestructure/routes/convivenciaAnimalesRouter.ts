@@ -1,17 +1,8 @@
-import express from 'express';
-import { createConvivenciaAnimalesController } from '../convivenciaAnimales_dependencies';
-import { readAllConvivenciaAnimalesController } from '../convivenciaAnimales_dependencies';
-import { deleteConvivenciaAnimalesController } from '../convivenciaAnimales_dependencies';
-import { readConvivenciaAnimalesByIdController } from '../convivenciaAnimales_dependencies';
-import { updateConvivenciaAnimalesController } from '../convivenciaAnimales_dependencies';
-
-export const router = express.Router();
-
 /**
  * @swagger
- * /convivencia-animales:
+ * /api/convivencia-animales:
  *   post:
- *     summary: Crear un nuevo registro de convivencia con animales
+ *     summary: Create a new animal coexistence record
  *     tags: [ConvivenciaAnimales]
  *     requestBody:
  *       required: true
@@ -21,56 +12,30 @@ export const router = express.Router();
  *             $ref: '#/components/schemas/ConvivenciaAnimales'
  *     responses:
  *       201:
- *         description: Registro creado exitosamente
+ *         description: Animal coexistence record created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ConvivenciaAnimales'
  *       400:
- *         description: Datos inválidos
- */
-router.post('/convivencia-animales', createConvivenciaAnimalesController.run.bind(createConvivenciaAnimalesController));
-
-/**
- * @swagger
- * /convivencia-animales:
+ *         description: Invalid input data
+ * 
  *   get:
- *     summary: Obtener todos los registros de convivencia con animales
+ *     summary: Get all animal coexistence records
  *     tags: [ConvivenciaAnimales]
  *     responses:
  *       200:
- *         description: Lista de registros
+ *         description: List of all animal coexistence records
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/ConvivenciaAnimales'
- */
-router.get('/convivencia-animales', readAllConvivenciaAnimalesController.run.bind(readAllConvivenciaAnimalesController));
-
-/**
- * @swagger
- * /convivencia-animales/{id}:
- *   delete:
- *     summary: Eliminar un registro de convivencia con animales
- *     tags: [ConvivenciaAnimales]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID del registro
- *     responses:
- *       200:
- *         description: Registro eliminado exitosamente
- *       404:
- *         description: Registro no encontrado
- */
-router.delete('/convivencia-animales/:id', deleteConvivenciaAnimalesController.run.bind(deleteConvivenciaAnimalesController));
-
-/**
- * @swagger
- * /convivencia-animales/{id}:
+ * 
+ * /api/convivencia-animales/{id}:
  *   get:
- *     summary: Obtener un registro de convivencia con animales por ID
+ *     summary: Get an animal coexistence record by ID
  *     tags: [ConvivenciaAnimales]
  *     parameters:
  *       - in: path
@@ -78,24 +43,19 @@ router.delete('/convivencia-animales/:id', deleteConvivenciaAnimalesController.r
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID del registro
+ *         description: ID of the animal coexistence record
  *     responses:
  *       200:
- *         description: Registro encontrado
+ *         description: Animal coexistence record found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ConvivenciaAnimales'
  *       404:
- *         description: Registro no encontrado
- */
-router.get('/convivencia-animales/:id', readConvivenciaAnimalesByIdController.run.bind(readConvivenciaAnimalesByIdController));
-
-/**
- * @swagger
- * /convivencia-animales/{id}:
+ *         description: Record not found
+ * 
  *   put:
- *     summary: Actualizar un registro de convivencia con animales
+ *     summary: Update an animal coexistence record
  *     tags: [ConvivenciaAnimales]
  *     parameters:
  *       - in: path
@@ -103,7 +63,7 @@ router.get('/convivencia-animales/:id', readConvivenciaAnimalesByIdController.ru
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID del registro
+ *         description: ID of the animal coexistence record to update
  *     requestBody:
  *       required: true
  *       content:
@@ -112,10 +72,44 @@ router.get('/convivencia-animales/:id', readConvivenciaAnimalesByIdController.ru
  *             $ref: '#/components/schemas/ConvivenciaAnimales'
  *     responses:
  *       200:
- *         description: Registro actualizado exitosamente
+ *         description: Animal coexistence record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ConvivenciaAnimales'
  *       404:
- *         description: Registro no encontrado
+ *         description: Record not found
+ * 
+ *   delete:
+ *     summary: Delete an animal coexistence record
+ *     tags: [ConvivenciaAnimales]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the animal coexistence record to delete
+ *     responses:
+ *       200:
+ *         description: Animal coexistence record deleted successfully
+ *       404:
+ *         description: Record not found
  */
+
+import express from 'express';
+import { createConvivenciaAnimalesController } from '../convivenciaAnimales_dependencies';
+import { readAllConvivenciaAnimalesController } from '../convivenciaAnimales_dependencies';
+import { deleteConvivenciaAnimalesController } from '../convivenciaAnimales_dependencies';
+import { readConvivenciaAnimalesByIdController } from '../convivenciaAnimales_dependencies';
+import { updateConvivenciaAnimalesController } from '../convivenciaAnimales_dependencies';
+
+export const router = express.Router();
+
+router.post('/convivencia-animales', createConvivenciaAnimalesController.run.bind(createConvivenciaAnimalesController));
+router.get('/convivencia-animales', readAllConvivenciaAnimalesController.run.bind(readAllConvivenciaAnimalesController));
+router.delete('/convivencia-animales/:id', deleteConvivenciaAnimalesController.run.bind(deleteConvivenciaAnimalesController));
+router.get('/convivencia-animales/:id', readConvivenciaAnimalesByIdController.run.bind(readConvivenciaAnimalesByIdController));
 router.put('/convivencia-animales/:id', updateConvivenciaAnimalesController.run.bind(updateConvivenciaAnimalesController));
 
 export default router;

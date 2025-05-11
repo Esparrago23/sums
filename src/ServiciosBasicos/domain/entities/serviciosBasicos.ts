@@ -18,40 +18,33 @@ export class ServiciosBasicos {
  *     ServiciosBasicos:
  *       type: object
  *       required:
- *         - cocina_separada
- *         - energia_electrica
- *         - agua_entubada
- *         - drenaje
- *         - wc
- *         - letrina
- *         - al_ras_de_suelo
- *         - fosa_septica
+ *         - id
  *       properties:
  *         id:
  *           type: integer
- *           description: ID del registro de servicios básicos
+ *           description: Identificador único del registro de servicios básicos
  *         cocina_separada:
  *           type: boolean
- *           description: Si la vivienda tiene cocina separada
+ *           description: Indica si la cocina está separada del resto de la vivienda
  *         energia_electrica:
  *           type: boolean
- *           description: Si la vivienda tiene energía eléctrica
+ *           description: Indica si la vivienda cuenta con energía eléctrica
  *         agua_entubada:
  *           type: boolean
- *           description: Si la vivienda tiene agua entubada
+ *           description: Indica si la vivienda cuenta con agua entubada
  *         drenaje:
  *           type: boolean
- *           description: Si la vivienda tiene drenaje
+ *           description: Indica si la vivienda cuenta con sistema de drenaje
  *         wc:
  *           type: boolean
- *           description: Si la vivienda tiene WC
+ *           description: Indica si la vivienda cuenta con sanitario (WC)
  *         letrina:
  *           type: boolean
- *           description: Si la vivienda tiene letrina
+ *           description: Indica si la vivienda utiliza letrina
  *         al_ras_de_suelo:
  *           type: boolean
- *           description: Si la vivienda está al ras de suelo
+ *           description: Indica si la deposición de desechos es al ras del suelo
  *         fosa_septica:
  *           type: boolean
- *           description: Si la vivienda tiene fosa séptica
+ *           description: Indica si la vivienda cuenta con fosa séptica
  */

@@ -1,3 +1,102 @@
+/**
+ * @swagger
+ * /api/salud-familiar:
+ *   post:
+ *     summary: Create a new family health record
+ *     tags: [SaludFamiliar]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SaludFamiliar'
+ *     responses:
+ *       201:
+ *         description: Family health record created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SaludFamiliar'
+ *       400:
+ *         description: Invalid input data
+ * 
+ *   get:
+ *     summary: Get all family health records
+ *     tags: [SaludFamiliar]
+ *     responses:
+ *       200:
+ *         description: List of all family health records
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/SaludFamiliar'
+ * 
+ * /api/salud-familiar/{id}:
+ *   get:
+ *     summary: Get a family health record by ID
+ *     tags: [SaludFamiliar]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family health record
+ *     responses:
+ *       200:
+ *         description: Family health record found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SaludFamiliar'
+ *       404:
+ *         description: Record not found
+ * 
+ *   put:
+ *     summary: Update a family health record
+ *     tags: [SaludFamiliar]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family health record to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SaludFamiliar'
+ *     responses:
+ *       200:
+ *         description: Family health record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SaludFamiliar'
+ *       404:
+ *         description: Record not found
+ * 
+ *   delete:
+ *     summary: Delete a family health record
+ *     tags: [SaludFamiliar]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family health record to delete
+ *     responses:
+ *       200:
+ *         description: Family health record deleted successfully
+ *       404:
+ *         description: Record not found
+ */
+
 import express from 'express';
 import { createSaludFamiliarController } from '../saludFamiliar_dependencies';
 import { readAllSaludFamiliarController } from '../saludFamiliar_dependencies';
@@ -13,98 +112,3 @@ router.get('/salud-familiar/:id', readSaludFamiliarByIdController.run.bind(readS
 router.put('/salud-familiar/:id', updateSaludFamiliarController.run.bind(updateSaludFamiliarController));
 
 export default router;
-/**
- * @swagger
- * /salud-familiar:
- *   post:
- *     summary: Crear un nuevo registro de salud familiar
- *     tags: [SaludFamiliar]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/SaludFamiliar'
- *     responses:
- *       201:
- *         description: Registro de salud familiar creado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SaludFamiliar'
- *       400:
- *         description: Datos inválidos
-
- *   get:
- *     summary: Obtener todos los registros de salud familiar
- *     tags: [SaludFamiliar]
- *     responses:
- *       200:
- *         description: Lista de registros de salud familiar
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/SaludFamiliar'
-
- * /salud-familiar/{id}:
- *   get:
- *     summary: Obtener registro de salud familiar por ID
- *     tags: [SaludFamiliar]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Registro de salud familiar encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SaludFamiliar'
- *       404:
- *         description: Registro no encontrado
-
- *   put:
- *     summary: Actualizar un registro de salud familiar
- *     tags: [SaludFamiliar]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/SaludFamiliar'
- *     responses:
- *       200:
- *         description: Registro de salud familiar actualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SaludFamiliar'
- *       404:
- *         description: Registro no encontrado
-
- *   delete:
- *     summary: Eliminar un registro de salud familiar
- *     tags: [SaludFamiliar]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Registro de salud familiar eliminado
- *       404:
- *         description: Registro no encontrado
- */

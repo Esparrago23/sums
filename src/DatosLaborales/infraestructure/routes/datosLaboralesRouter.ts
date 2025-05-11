@@ -1,22 +1,8 @@
-import express from 'express';
-import { createDatosLaboralesController } from '../datosLaborales_dependencies';
-import { readAllDatosLaboralesController } from '../datosLaborales_dependencies';
-import { deleteDatosLaboralesController } from '../datosLaborales_dependencies';
-import { readDatosLaboralesByIdController } from '../datosLaborales_dependencies';
-import { updateDatosLaboralesController } from '../datosLaborales_dependencies';
-
 /**
  * @swagger
- * tags:
- *   name: DatosLaborales
- *   description: Gestión de datos laborales
- */
-
-/**
- * @swagger
- * /datos_laborales:
+ * /api/datos_laborales:
  *   post:
- *     summary: Crear nuevos datos laborales
+ *     summary: Create new employment data
  *     tags: [DatosLaborales]
  *     requestBody:
  *       required: true
@@ -26,30 +12,30 @@ import { updateDatosLaboralesController } from '../datosLaborales_dependencies';
  *             $ref: '#/components/schemas/DatosLaborales'
  *     responses:
  *       201:
- *         description: Datos laborales creados exitosamente
+ *         description: Employment data created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/DatosLaborales'
  *       400:
- *         description: Datos inválidos
- *       500:
- *         description: Error del servidor
+ *         description: Invalid input data
+ * 
  *   get:
- *     summary: Obtener todos los datos laborales
+ *     summary: Get all employment data records
  *     tags: [DatosLaborales]
  *     responses:
  *       200:
- *         description: Lista de datos laborales
+ *         description: List of all employment data records
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/DatosLaborales'
- */
-
-/**
- * @swagger
- * /datos_laborales/{id}:
+ * 
+ * /api/datos_laborales/{id}:
  *   get:
- *     summary: Obtener datos laborales por ID
+ *     summary: Get employment data by ID
  *     tags: [DatosLaborales]
  *     parameters:
  *       - in: path
@@ -57,18 +43,19 @@ import { updateDatosLaboralesController } from '../datosLaborales_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de los datos laborales
+ *         description: ID of the employment data record
  *     responses:
  *       200:
- *         description: Datos laborales encontrados
+ *         description: Employment data record found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/DatosLaborales'
  *       404:
- *         description: Datos laborales no encontrados
+ *         description: Record not found
+ * 
  *   put:
- *     summary: Actualizar datos laborales
+ *     summary: Update employment data
  *     tags: [DatosLaborales]
  *     parameters:
  *       - in: path
@@ -76,7 +63,7 @@ import { updateDatosLaboralesController } from '../datosLaborales_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de los datos laborales
+ *         description: ID of the employment data record to update
  *     requestBody:
  *       required: true
  *       content:
@@ -85,11 +72,16 @@ import { updateDatosLaboralesController } from '../datosLaborales_dependencies';
  *             $ref: '#/components/schemas/DatosLaborales'
  *     responses:
  *       200:
- *         description: Datos laborales actualizados
+ *         description: Employment data updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/DatosLaborales'
  *       404:
- *         description: Datos laborales no encontrados
+ *         description: Record not found
+ * 
  *   delete:
- *     summary: Eliminar datos laborales
+ *     summary: Delete employment data
  *     tags: [DatosLaborales]
  *     parameters:
  *       - in: path
@@ -97,13 +89,21 @@ import { updateDatosLaboralesController } from '../datosLaborales_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de los datos laborales
+ *         description: ID of the employment data record to delete
  *     responses:
  *       200:
- *         description: Datos laborales eliminados
+ *         description: Employment data deleted successfully
  *       404:
- *         description: Datos laborales no encontrados
+ *         description: Record not found
  */
+
+import express from 'express';
+import { createDatosLaboralesController } from '../datosLaborales_dependencies';
+import { readAllDatosLaboralesController } from '../datosLaborales_dependencies';
+import { deleteDatosLaboralesController } from '../datosLaborales_dependencies';
+import { readDatosLaboralesByIdController } from '../datosLaborales_dependencies';
+import { updateDatosLaboralesController } from '../datosLaborales_dependencies';
+
 
 export const router = express.Router();
 router.post('/datos_laborales', createDatosLaboralesController.run.bind(createDatosLaboralesController));

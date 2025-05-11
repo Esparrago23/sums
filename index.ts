@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
-import { swaggerSpec } from './src/docs/swagger';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './src/docs/swagger';
 import { db } from './src/core/db_postgresql';
 
 import EntrevistadorRouter from './src/Entrevistador/infraestructure/routes/entrevistadorRouter';

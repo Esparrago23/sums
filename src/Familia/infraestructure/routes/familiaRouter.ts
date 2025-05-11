@@ -1,3 +1,102 @@
+/**
+ * @swagger
+ * /api/familias:
+ *   post:
+ *     summary: Create a new family record
+ *     tags: [Familias]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Familia'
+ *     responses:
+ *       201:
+ *         description: Family record created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Familia'
+ *       400:
+ *         description: Invalid input data
+ * 
+ *   get:
+ *     summary: Get all family records
+ *     tags: [Familias]
+ *     responses:
+ *       200:
+ *         description: List of all family records
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Familia'
+ * 
+ * /api/familias/{id}:
+ *   get:
+ *     summary: Get a family record by ID
+ *     tags: [Familias]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family record
+ *     responses:
+ *       200:
+ *         description: Family record found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Familia'
+ *       404:
+ *         description: Family record not found
+ * 
+ *   put:
+ *     summary: Update a family record
+ *     tags: [Familias]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family record to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Familia'
+ *     responses:
+ *       200:
+ *         description: Family record updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Familia'
+ *       404:
+ *         description: Family record not found
+ * 
+ *   delete:
+ *     summary: Delete a family record
+ *     tags: [Familias]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the family record to delete
+ *     responses:
+ *       200:
+ *         description: Family record deleted successfully
+ *       404:
+ *         description: Family record not found
+ */
+
 import express from 'express';
 import { createFamiliaController } from '../familia_dependencies';
 import { readAllFamiliaController } from '../familia_dependencies';
@@ -15,98 +114,3 @@ router.get('/familias/:id', readFamiliaByIdController.run.bind(readFamiliaByIdCo
 router.put('/familias/:id', updateFamiliaController.run.bind(updateFamiliaController));
 
 export default router;
-/**
- * @swagger
- * /familias:
- *   post:
- *     summary: Crear una nueva familia
- *     tags: [Familias]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Familia'
- *     responses:
- *       201:
- *         description: Familia creada exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Familia'
- *       400:
- *         description: Datos inválidos
-
- *   get:
- *     summary: Obtener todas las familias
- *     tags: [Familias]
- *     responses:
- *       200:
- *         description: Lista de familias
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Familia'
-
- * /familias/{id}:
- *   get:
- *     summary: Obtener familia por ID
- *     tags: [Familias]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Familia encontrada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Familia'
- *       404:
- *         description: Familia no encontrada
-
- *   put:
- *     summary: Actualizar una familia
- *     tags: [Familias]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Familia'
- *     responses:
- *       200:
- *         description: Familia actualizada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Familia'
- *       404:
- *         description: Familia no encontrada
-
- *   delete:
- *     summary: Eliminar una familia
- *     tags: [Familias]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Familia eliminada
- *       404:
- *         description: Familia no encontrada
- */

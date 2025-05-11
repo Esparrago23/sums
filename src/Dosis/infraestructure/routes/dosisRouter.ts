@@ -1,24 +1,8 @@
-import express from 'express';
-import { createDosisController } from '../dosis_dependencies';
-import { readAllDosisController } from '../dosis_dependencies';
-import { deleteDosisController } from '../dosis_dependencies';
-import { readDosisByIdController } from '../dosis_dependencies';
-import { updateDosisController } from '../dosis_dependencies';
-
-
-
 /**
  * @swagger
- * tags:
- *   name: Dosis
- *   description: Gestión de dosis de vacunas
- */
-
-/**
- * @swagger
- * /dosis:
+ * /api/dosis:
  *   post:
- *     summary: Crear una nueva dosis
+ *     summary: Create a new dose
  *     tags: [Dosis]
  *     requestBody:
  *       required: true
@@ -28,30 +12,30 @@ import { updateDosisController } from '../dosis_dependencies';
  *             $ref: '#/components/schemas/Dosis'
  *     responses:
  *       201:
- *         description: Dosis creada exitosamente
+ *         description: Dose created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Dosis'
  *       400:
- *         description: Datos inválidos
- *       500:
- *         description: Error del servidor
+ *         description: Invalid input data
+ * 
  *   get:
- *     summary: Obtener todas las dosis
+ *     summary: Get all doses
  *     tags: [Dosis]
  *     responses:
  *       200:
- *         description: Lista de dosis
+ *         description: List of all doses
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Dosis'
- */
-
-/**
- * @swagger
- * /dosis/{id}:
+ * 
+ * /api/dosis/{id}:
  *   get:
- *     summary: Obtener dosis por ID
+ *     summary: Get a dose by ID
  *     tags: [Dosis]
  *     parameters:
  *       - in: path
@@ -59,18 +43,19 @@ import { updateDosisController } from '../dosis_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la dosis
+ *         description: ID of the dose
  *     responses:
  *       200:
- *         description: Dosis encontrada
+ *         description: Dose found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Dosis'
  *       404:
- *         description: Dosis no encontrada
+ *         description: Dose not found
+ * 
  *   put:
- *     summary: Actualizar dosis
+ *     summary: Update a dose
  *     tags: [Dosis]
  *     parameters:
  *       - in: path
@@ -78,7 +63,7 @@ import { updateDosisController } from '../dosis_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la dosis
+ *         description: ID of the dose to update
  *     requestBody:
  *       required: true
  *       content:
@@ -87,11 +72,16 @@ import { updateDosisController } from '../dosis_dependencies';
  *             $ref: '#/components/schemas/Dosis'
  *     responses:
  *       200:
- *         description: Dosis actualizada
+ *         description: Dose updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Dosis'
  *       404:
- *         description: Dosis no encontrada
+ *         description: Dose not found
+ * 
  *   delete:
- *     summary: Eliminar dosis
+ *     summary: Delete a dose
  *     tags: [Dosis]
  *     parameters:
  *       - in: path
@@ -99,13 +89,21 @@ import { updateDosisController } from '../dosis_dependencies';
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la dosis
+ *         description: ID of the dose to delete
  *     responses:
  *       200:
- *         description: Dosis eliminada
+ *         description: Dose deleted successfully
  *       404:
- *         description: Dosis no encontrada
+ *         description: Dose not found
  */
+
+import express from 'express';
+import { createDosisController } from '../dosis_dependencies';
+import { readAllDosisController } from '../dosis_dependencies';
+import { deleteDosisController } from '../dosis_dependencies';
+import { readDosisByIdController } from '../dosis_dependencies';
+import { updateDosisController } from '../dosis_dependencies';
+
 
 export const router = express.Router();
 

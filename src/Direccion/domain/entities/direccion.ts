@@ -6,35 +6,30 @@
  *       type: object
  *       required:
  *         - id
- *         - calle
- *         - numero_exterior
- *         - colonia
- *         - municipio
- *         - entidad
- *         - codigo_postal
  *       properties:
  *         id:
  *           type: integer
- *           description: ID único de la dirección
+ *           description: Identificador único de la dirección
  *         calle:
  *           type: string
  *           description: Nombre de la calle
  *         numero_exterior:
  *           type: string
- *           description: Número exterior del domicilio
+ *           description: Número exterior de la vivienda
  *         colonia:
  *           type: string
- *           description: Nombre de la colonia
+ *           description: Nombre de la colonia o fraccionamiento
  *         municipio:
  *           type: string
- *           description: Nombre del municipio
+ *           description: Municipio o delegación
  *         entidad:
  *           type: string
- *           description: Nombre de la entidad federativa
+ *           description: Entidad federativa (estado)
  *         codigo_postal:
  *           type: string
- *           description: Código postal
+ *           description: Código postal de la zona
  */
+
 export class Direccion {
     constructor(
         public id: number,
