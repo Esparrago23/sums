@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/educaciones:
+ * /educaciones:
  *   post:
  *     summary: Create a new education record
  *     tags: [Educacion]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Educacion'
  * 
- * /api/educaciones/{id}:
+ * /educaciones/{id}:
  *   get:
  *     summary: Get an education record by ID
  *     tags: [Educacion]

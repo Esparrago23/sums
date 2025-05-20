@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/vacunas:
+ * /vacunas:
  *   post:
  *     summary: Create a new vaccine
  *     tags: [Vacunas]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Vacunas'
  * 
- * /api/vacunas/{id}:
+ * /vacunas/{id}:
  *   get:
  *     summary: Get a vaccine by ID
  *     tags: [Vacunas]

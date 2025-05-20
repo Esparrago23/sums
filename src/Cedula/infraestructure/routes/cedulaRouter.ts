@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/cedulas:
+ * /cedulas:
  *   post:
  *     summary: Create a new cedula
  *     tags: [Cedulas]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Cedula'
  * 
- * /api/cedulas/{id}:
+ * /cedulas/{id}:
  *   get:
  *     summary: Get a cedula by ID
  *     tags: [Cedulas]

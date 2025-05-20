@@ -7,10 +7,10 @@ export class LoginUser_Controller {
     async run(req: Request, res: Response) {
         try {
             const { nombre_usuario, contrasena } = req.body;
-            const token = await this.loginUser.execute(nombre_usuario, contrasena);
+            const result = await this.loginUser.execute(nombre_usuario, contrasena);
 
-            if (token) {
-                res.status(200).json({ token });
+            if (result) {
+                res.status(200).json(result);
             } else {
                 res.status(401).json({ error: "Invalid credentials" });
             }

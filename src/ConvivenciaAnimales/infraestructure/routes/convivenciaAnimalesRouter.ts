@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/convivencia-animales:
+ * /convivencia-animales:
  *   post:
  *     summary: Create a new animal coexistence record
  *     tags: [ConvivenciaAnimales]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/ConvivenciaAnimales'
  * 
- * /api/convivencia-animales/{id}:
+ * /convivencia-animales/{id}:
  *   get:
  *     summary: Get an animal coexistence record by ID
  *     tags: [ConvivenciaAnimales]

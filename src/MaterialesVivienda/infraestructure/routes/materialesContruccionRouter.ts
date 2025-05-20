@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/materiales_vivienda:
+ * /materiales_vivienda:
  *   post:
  *     summary: Create a new housing material record
  *     tags: [MaterialesVivienda]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/MaterialesVivienda'
  * 
- * /api/materiales_vivienda/{id}:
+ * /materiales_vivienda/{id}:
  *   get:
  *     summary: Get a housing material record by ID
  *     tags: [MaterialesVivienda]

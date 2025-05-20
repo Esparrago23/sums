@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/dosis:
+ * /dosis:
  *   post:
  *     summary: Create a new dose
  *     tags: [Dosis]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Dosis'
  * 
- * /api/dosis/{id}:
+ * /dosis/{id}:
  *   get:
  *     summary: Get a dose by ID
  *     tags: [Dosis]

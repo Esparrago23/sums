@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/servicios-basicos:
+ * /servicios-basicos:
  *   post:
  *     summary: Create a new basic services record
  *     tags: [ServiciosBasicos]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/ServiciosBasicos'
  * 
- * /api/servicios-basicos/{id}:
+ * /servicios-basicos/{id}:
  *   get:
  *     summary: Get a basic services record by ID
  *     tags: [ServiciosBasicos]

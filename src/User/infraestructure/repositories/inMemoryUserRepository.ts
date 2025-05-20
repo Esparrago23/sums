@@ -2,6 +2,7 @@ import { User } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepositoy';
 import { db } from '../../../core/db_postgresql';
 import { formatDateForDB, parseDBDate } from '../../../core/date_utils';
+import { comparePassword } from '../services/bcrypt';
 
 export class InMemoryUserRepository implements IUserRepository {
     async create(user: User): Promise<User> {
@@ -114,13 +115,12 @@ export class InMemoryUserRepository implements IUserRepository {
         }
 
         const user = result.rows[0];
-        const isPasswordValid = contrasena === user.contrasena;
+        const isPasswordValid = await comparePassword(contrasena, user.contrasena);
 
         if (!isPasswordValid) {
             return null;
         }
         
-        // Parsear la fecha en el resultado si existe
         if (user.fecha_registro) {
             user.fecha_registro = parseDBDate(user.fecha_registro);
         }
