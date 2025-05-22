@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/vacunaciones:
+ * /vacunaciones:
  *   post:
  *     summary: Create a new vaccination record
  *     tags: [Vacunaciones]
@@ -31,7 +31,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Vacunacion'
  * 
- * /api/vacunaciones/{id}:
+ * /vacunaciones/{id}:
  *   get:
  *     summary: Get a vaccination record by ID
  *     tags: [Vacunaciones]
@@ -90,7 +90,7 @@
  *       404:
  *         description: Record not found
  * 
- * /api/vacunaciones/por-vacuna-dosis:
+ * /vacunaciones/por-vacuna-dosis:
  *   get:
  *     summary: Get total applications by vaccine type and dose
  *     tags: [Estadísticas de Vacunación]
@@ -104,7 +104,7 @@
  *               items:
  *                 $ref: '#/components/schemas/VacunaDosisAplicacionDTO'
  * 
- * /api/vacunaciones/por-persona/{persona_id}:
+ * /vacunaciones/por-persona/{persona_id}:
  *   get:
  *     summary: Get vaccinations by vaccine type for a specific person
  *     tags: [Estadísticas de Vacunación]
@@ -125,7 +125,7 @@
  *               items:
  *                 $ref: '#/components/schemas/VacunaDosisAplicacionDTO'
  * 
- * /api/vacunaciones/personas-por-vacuna:
+ * /vacunaciones/personas-por-vacuna:
  *   get:
  *     summary: Get number of people vaccinated per vaccine type
  *     tags: [Estadísticas de Vacunación]
@@ -139,7 +139,7 @@
  *               items:
  *                 $ref: '#/components/schemas/PersonasVacunadasPorVacunaDTO'
  * 
- * /api/vacunaciones/por-anio:
+ * /vacunaciones/por-anio:
  *   get:
  *     summary: Get applications by year and vaccine type
  *     tags: [Estadísticas de Vacunación]
@@ -153,7 +153,7 @@
  *               items:
  *                 $ref: '#/components/schemas/AplicacionesPorAnioVacunaDTO'
  * 
- * /api/vacunaciones/por-sexo/{sexo}:
+ * /vacunaciones/por-sexo/{sexo}:
  *   get:
  *     summary: Get vaccinations segmented by gender
  *     tags: [Estadísticas de Vacunación]
@@ -174,7 +174,7 @@
  *               items:
  *                 $ref: '#/components/schemas/VacunacionPorSexoDTO'
  * 
- * /api/vacunaciones/por-rango-edad:
+ * /vacunaciones/por-rango-edad:
  *   get:
  *     summary: Get vaccinations by age range
  *     tags: [Estadísticas de Vacunación]
@@ -188,7 +188,7 @@
  *               items:
  *                 $ref: '#/components/schemas/VacunacionPorRangoEdadDTO'
  * 
- * /api/vacunaciones/dosis-por-persona:
+ * /vacunaciones/dosis-por-persona:
  *   get:
  *     summary: Get total doses applied per person
  *     tags: [Estadísticas de Vacunación]

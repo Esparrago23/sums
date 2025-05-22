@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/estilos-vida:
+ * /estilos-vida:
  *   post:
  *     summary: Create a new lifestyle record
  *     tags: [EstiloVida]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/EstiloVida'
  * 
- * /api/estilos-vida/{id}:
+ * /estilos-vida/{id}:
  *   get:
  *     summary: Get a lifestyle record by ID
  *     tags: [EstiloVida]

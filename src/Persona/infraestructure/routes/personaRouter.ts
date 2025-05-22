@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/personas:
+ * /personas:
  *   post:
  *     summary: Create a new person record
  *     tags: [Personas]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Persona'
  * 
- * /api/personas/{id}:
+ * /personas/{id}:
  *   get:
  *     summary: Get a person record by ID
  *     tags: [Personas]

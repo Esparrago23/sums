@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/viviendas:
+ * /viviendas:
  *   post:
  *     summary: Create a new housing record
  *     tags: [Viviendas]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Vivienda'
  * 
- * /api/viviendas/{id}:
+ * /viviendas/{id}:
  *   get:
  *     summary: Get a housing record by ID
  *     tags: [Viviendas]

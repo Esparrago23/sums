@@ -1,28 +1,28 @@
 /**
  * @swagger
- * /api/entrevistadores:
+ * /roles:
  *   post:
  *     summary: Create a new interviewer
- *     tags: [Entrevistadores]
+ *     tags: [Roles]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Entrevistador'
+ *             $ref: '#/components/schemas/Rol'
  *     responses:
  *       201:
  *         description: Interviewer created successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Entrevistador'
+ *               $ref: '#/components/schemas/Rol'
  *       400:
  *         description: Invalid input data
  * 
  *   get:
  *     summary: Get all interviewers
- *     tags: [Entrevistadores]
+ *     tags: [Roles]
  *     responses:
  *       200:
  *         description: List of all interviewers
@@ -31,12 +31,12 @@
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Entrevistador'
+ *                 $ref: '#/components/schemas/Rol'
  * 
- * /api/entrevistadores/{id}:
+ * /roles/{id}:
  *   get:
  *     summary: Get an interviewer by ID
- *     tags: [Entrevistadores]
+ *     tags: [Roles]
  *     parameters:
  *       - in: path
  *         name: id
@@ -50,13 +50,13 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Entrevistador'
+ *               $ref: '#/components/schemas/Rol'
  *       404:
  *         description: Interviewer not found
  * 
  *   put:
  *     summary: Update an interviewer
- *     tags: [Entrevistadores]
+ *     tags: [Roles]
  *     parameters:
  *       - in: path
  *         name: id
@@ -69,20 +69,20 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Entrevistador'
+ *             $ref: '#/components/schemas/Rol'
  *     responses:
  *       200:
  *         description: Interviewer updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Entrevistador'
+ *               $ref: '#/components/schemas/Rol'
  *       404:
  *         description: Interviewer not found
  * 
  *   delete:
  *     summary: Delete an interviewer
- *     tags: [Entrevistadores]
+ *     tags: [Roles]
  *     parameters:
  *       - in: path
  *         name: id
@@ -105,10 +105,10 @@ import { readEntrevistadorByIdController } from '../entrevistador_dependencies';
 import { updateEntrevistadorController } from '../entrevistador_dependencies';
 
 export const router = express.Router();
-router.post('/entrevistadores', createEntrevistadorController.run.bind(createEntrevistadorController));
-router.get('/entrevistadores', readAllEntrevistadorController.run.bind(readAllEntrevistadorController));
-router.delete('/entrevistadores/:id', deleteEntrevistadorController.run.bind(deleteEntrevistadorController));
-router.get('/entrevistadores/:id', readEntrevistadorByIdController.run.bind(readEntrevistadorByIdController));
-router.put('/entrevistadores/:id', updateEntrevistadorController.run.bind(updateEntrevistadorController));
+router.post('/roles', createEntrevistadorController.run.bind(createEntrevistadorController));
+router.get('/roles', readAllEntrevistadorController.run.bind(readAllEntrevistadorController));
+router.delete('/roles/:id', deleteEntrevistadorController.run.bind(deleteEntrevistadorController));
+router.get('/roles/:id', readEntrevistadorByIdController.run.bind(readEntrevistadorByIdController));
+router.put('/roles/:id', updateEntrevistadorController.run.bind(updateEntrevistadorController));
 
 export default router;
