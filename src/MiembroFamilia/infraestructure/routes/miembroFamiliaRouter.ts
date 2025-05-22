@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/miembros_familia:
+ * /miembros_familia:
  *   post:
  *     summary: Create a new family member record
  *     tags: [MiembrosFamilia]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/MiembroFamilia'
  * 
- * /api/miembros_familia/{id}:
+ * /miembros_familia/{id}:
  *   get:
  *     summary: Get a family member record by ID
  *     tags: [MiembrosFamilia]

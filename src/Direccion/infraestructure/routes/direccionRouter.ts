@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/direcciones:
+ * /direcciones:
  *   post:
  *     summary: Create a new address
  *     tags: [Direcciones]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Direccion'
  * 
- * /api/direcciones/{id}:
+ * /direcciones/{id}:
  *   get:
  *     summary: Get an address by ID
  *     tags: [Direcciones]

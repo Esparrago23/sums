@@ -1,8 +1,8 @@
 /**
  * @swagger
- * /api/register:
+ * /register:
  *   post:
- *     summary: Register a new user
+ *     summary: Registrar un nuevo usuario
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -12,17 +12,17 @@
  *             $ref: '#/components/schemas/Usuario'
  *     responses:
  *       201:
- *         description: User registered successfully
+ *         description: Usuario registrado exitosamente
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
  *       400:
- *         description: Invalid input data
+ *         description: Datos de entrada inválidos
  * 
- * /api/login:
+ * /login:
  *   post:
- *     summary: Authenticate user and get token
+ *     summary: Autenticar usuario y obtener token
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -41,7 +41,7 @@
  *                 format: password
  *     responses:
  *       200:
- *         description: Login successful
+ *         description: Login exitoso
  *         content:
  *           application/json:
  *             schema:
@@ -49,10 +49,44 @@
  *               properties:
  *                 token:
  *                   type: string
+ *                   description: Token JWT para autenticación
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: ID del usuario
+ *                     nombre_usuario:
+ *                       type: string
+ *                       description: Nombre de usuario
+ *                     rol_id:
+ *                       type: integer
+ *                       description: ID del rol del usuario
+ *                     fecha_registro:
+ *                       type: string
+ *                       format: date-time
+ *                       description: Fecha de registro del usuario
+ *                     activo:
+ *                       type: boolean
+ *                       description: Estado del usuario
+ *                     unidad_salud_id:
+ *                       type: integer
+ *                       description: ID de la unidad de salud
+ *                     datos_laborales_id:
+ *                       type: integer
+ *                       description: ID de los datos laborales
  *       401:
- *         description: Authentication failed
+ *         description: Autenticación fallida
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid credentials"
  * 
- * /api/users:
+ * /users:
  *   get:
  *     summary: Get all users
  *     tags: [Users]
@@ -70,7 +104,7 @@
  *       401:
  *         description: Unauthorized access
  * 
- * /api/users/{id}:
+ * /users/{id}:
  *   get:
  *     summary: Get a user by ID
  *     tags: [Users]
@@ -120,26 +154,6 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
- *       404:
- *         description: User not found
- *       401:
- *         description: Unauthorized access
- * 
- *   delete:
- *     summary: Delete a user
- *     tags: [Users]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID of the user to delete
- *     responses:
- *       200:
- *         description: User deleted successfully
  *       404:
  *         description: User not found
  *       401:

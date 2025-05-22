@@ -10,7 +10,7 @@ const swaggerOptions: swaggerJSDoc.Options = {
         },
         servers: [
             {
-              url: `http://localhost:${process.env.PORT || 3000}`,
+              url: `http://localhost:${process.env.PORT || 3000}/sums`,
               description: 'Development server',
             },
           ],

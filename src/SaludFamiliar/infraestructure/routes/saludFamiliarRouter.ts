@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/salud-familiar:
+ * /salud-familiar:
  *   post:
  *     summary: Create a new family health record
  *     tags: [SaludFamiliar]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/SaludFamiliar'
  * 
- * /api/salud-familiar/{id}:
+ * /salud-familiar/{id}:
  *   get:
  *     summary: Get a family health record by ID
  *     tags: [SaludFamiliar]

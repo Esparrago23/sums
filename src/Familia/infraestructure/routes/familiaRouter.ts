@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/familias:
+ * /familias:
  *   post:
  *     summary: Create a new family record
  *     tags: [Familias]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Familia'
  * 
- * /api/familias/{id}:
+ * /familias/{id}:
  *   get:
  *     summary: Get a family record by ID
  *     tags: [Familias]

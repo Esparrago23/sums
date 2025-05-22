@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/unidadSalud:
+ * /unidadSalud:
  *   post:
  *     summary: Create a new health unit
  *     tags: [UnidadSalud]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/UnidadSalud'
  * 
- * /api/unidadSalud/{id}:
+ * /unidadSalud/{id}:
  *   get:
  *     summary: Get a health unit by ID
  *     tags: [UnidadSalud]

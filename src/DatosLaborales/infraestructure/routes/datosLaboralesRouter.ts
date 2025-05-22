@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/datos_laborales:
+ * /datos_laborales:
  *   post:
  *     summary: Create new employment data
  *     tags: [DatosLaborales]
@@ -33,7 +33,7 @@
  *               items:
  *                 $ref: '#/components/schemas/DatosLaborales'
  * 
- * /api/datos_laborales/{id}:
+ * /datos_laborales/{id}:
  *   get:
  *     summary: Get employment data by ID
  *     tags: [DatosLaborales]
