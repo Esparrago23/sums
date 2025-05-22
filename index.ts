@@ -1,4 +1,8 @@
 import express from 'express';
+import { loadDBConfig } from './src/core/config/dbConfig';
+import { ensureDatabaseForCurrentYear } from './src/core/db/dbutil';
+import { connectToCurrentYearDB } from './src/core/db/connection';
+import { fatal, log } from './src/utils/logger';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
@@ -26,45 +30,87 @@ import VacunasRouter from './src/Vacunas/infraestructure/routes/vacunasRouter';
 import DosisRouter from './src/Dosis/infraestructure/routes/dosisRouter';
 dotenv.config();
 
-const app = express();
+async function checkAndCreateYearlyDatabase(cfg: any, currentPool: any) {
+  const currentYear = new Date().getFullYear();
+  const dbName = `centro_medico_${currentYear}`;
+  
+  try {
+    // Check if we need to create a new database for the new year
+    await ensureDatabaseForCurrentYear(cfg);
+    const newPool = await connectToCurrentYearDB(cfg);
+    
+    if (currentPool) {
+      await currentPool.end();
+    }
+    
+    log(`Database check completed: Using ${dbName}`);
+    return newPool;
+  } catch (error) {
+    log(`Error in yearly database check: ${error}`);
+    return currentPool; // Keep using current pool if there's an error
+  }
+}
 
+async function main() {
+  try {
+    const cfg = loadDBConfig();
+    let pool = await checkAndCreateYearlyDatabase(cfg, null);
+    
+    // Check for new year database every day at midnight
+    setInterval(async () => {
+      pool = await checkAndCreateYearlyDatabase(cfg, pool);
+    }, 24 * 60 * 60 * 1000); // Check every 24 hours
+    
+    const app = express();
+    
+    app.use(cors({
+      origin: process.env.ORIGIN_URL_1 && process.env.ORIGIN_URL_2 ? 
+        [process.env.ORIGIN_URL_1, process.env.ORIGIN_URL_2].filter(Boolean) : 
+        '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+      allowedHeaders: ['Content-Type', 'Authorization']
+    }));
+    app.use(express.json());
+    
+    
+    app.use('/sums/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    
+    app.use('/sums',  
+        CedulaRouter,
+        ConvivenciaAnimalesRouter,
+        DatosLaboralesRouter,
+        DireccionRouter,
+        DosisRouter,
+        EducacionRouter,
+        EntrevistadorRouter,
+        EstiloVidaRouter,
+        FamiliaRouter,
+        MaterialesViviendaRouter,
+        MiembroFamiliaRouter,
+        PersonaRouter, 
+        SaludFamiliarRouter,
+        ServiciosBasicosRouter,
+        ServiciosSaludRouter,
+        UnidadSaludRouter,
+        UserRouter, 
+        VacunacionRouter,
+        VacunasRouter,
+        ViviendaRouter,
+    );
+    
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}/sums`);
+    });
+    
+    process.on('SIGTERM', async () => {
+      if (pool) await pool.end();
+      process.exit(0);
+    });
+    
+  } catch (error) {
+    fatal(`Application error: ${error}`);
+  }
+}
 
-app.use(cors({
-  origin: process.env.ORIGIN_URL_1 && process.env.ORIGIN_URL_2 ? 
-    [process.env.ORIGIN_URL_1, process.env.ORIGIN_URL_2].filter(Boolean) : 
-    '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.use(express.json());
-
-
-app.use('/sums/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-app.use('/sums',  
-    CedulaRouter,
-    ConvivenciaAnimalesRouter,
-    DatosLaboralesRouter,
-    DireccionRouter,
-    DosisRouter,
-    EducacionRouter,
-    EntrevistadorRouter,
-    EstiloVidaRouter,
-    FamiliaRouter,
-    MaterialesViviendaRouter,
-    MiembroFamiliaRouter,
-    PersonaRouter, 
-    SaludFamiliarRouter,
-    ServiciosBasicosRouter,
-    ServiciosSaludRouter,
-    UnidadSaludRouter,
-    UserRouter, 
-    VacunacionRouter,
-    VacunasRouter,
-    ViviendaRouter,
-);
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}/sums`);
-});
+main();
